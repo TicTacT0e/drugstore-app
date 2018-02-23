@@ -1,4 +1,4 @@
-package fxInterface;
+package address;
 
 public class Controller {
 
