@@ -12,18 +12,19 @@ public class DBConnector {
 
     private Connection connection = null;
 
-    DBConnector (){}
+    public DBConnector (){}
 
-    DBConnector (String username, String password){
+    public DBConnector (String username, String password){
         this.username = username;
         this.password = password;
     }
 
-    public void startConnection(){
+    public Boolean startConnection(){
         try {
             connection = DriverManager.getConnection(URL, username, password);
+            return true;
         } catch (SQLException ex) {
-            ex.printStackTrace();
+           return false;
         }
     }
 
