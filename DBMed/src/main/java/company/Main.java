@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-@SuppressWarnings("ALL")
 public class Main extends Application {
 
     @Override
@@ -21,8 +20,8 @@ public class Main extends Application {
         primaryStage.setScene(scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight()));
         primaryStage.setResizable(false);
 
-        ConnectWindowController сonnectWindowController = loader.getController();
-        сonnectWindowController.setStage(primaryStage);
+        ConnectWindowController connectWindowController = loader.getController();
+        connectWindowController.setStage(primaryStage);
 
         primaryStage.show();
     }
