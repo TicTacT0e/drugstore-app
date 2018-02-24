@@ -21,7 +21,7 @@ public class DBConnector {
 
     public Boolean startConnection(){
         try {
-            connection = DriverManager.getConnection(URL, username, "PasswordSqlYura1488");
+            connection = DriverManager.getConnection(URL, username, password);
             return true;
         } catch (SQLException ex) {
            return false;
