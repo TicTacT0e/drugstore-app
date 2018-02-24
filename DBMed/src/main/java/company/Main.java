@@ -1,18 +1,29 @@
 package company;
 
+import address.ConnectWindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
+@SuppressWarnings("ALL")
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/view/ConnectWindow.fxml"));
+        Parent root;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ConnectWindow.fxml"));
+        root = (Parent)loader.load();
         primaryStage.setTitle("DrugStore");
-        primaryStage.setScene(new Scene(root, primaryStage.getWidth(), primaryStage.getHeight()));
+        Scene scene;
+        primaryStage.setScene(scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight()));
+        primaryStage.setResizable(false);
+
+        ConnectWindowController сonnectWindowController = loader.getController();
+        сonnectWindowController.setStage(primaryStage);
+
         primaryStage.show();
     }
 
