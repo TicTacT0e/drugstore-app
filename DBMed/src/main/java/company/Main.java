@@ -11,10 +11,10 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ConnectWindow.fxml"));
-        root = (Parent)loader.load();
+        root = (Parent) loader.load();
         primaryStage.setTitle("DrugStore");
         Scene scene;
         primaryStage.setScene(scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight()));
@@ -26,23 +26,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args){
-      launch(args);
-/*
-      DBConnector dbConnector = new DBConnector();
-
-      try (Statement statement = dbConnector.getConnection().createStatement()){
-
-          ResultSet resultSet = statement.executeQuery("SELECT medCode, nameMed FROM db_receipt_of_medicines.medprod");
-
-          while (resultSet.next()){
-              System.out.println(resultSet.getInt(1));
-              System.out.println(resultSet.getString(2));
-          }
-
-      }catch (SQLException ex){
-          ex.printStackTrace();
-      }
-*/
+    public static void main(String[] args) {
+        launch(args);
     }
 }

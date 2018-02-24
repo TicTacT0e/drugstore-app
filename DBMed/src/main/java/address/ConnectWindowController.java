@@ -20,11 +20,10 @@ import model.DBConnector;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 
-public class ConnectWindowController implements Initializable{
+public class ConnectWindowController implements Initializable {
 
     @FXML
     private TextField userField;
@@ -69,18 +68,19 @@ public class ConnectWindowController implements Initializable{
     }
 
     @FXML
-    public void passFieldKeyPressed(KeyEvent event){
+    public void passFieldKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             connect();
         }
     }
 
-    private void connect(){
+    private void connect() {
         dbConnector = new DBConnector(userField.getText(), passField.getText());
         connection = dbConnector.startConnection();
 
         if (connection) {
-            alert.setContentText("Database connected!"); alert.showAndWait();
+            alert.setContentText("Database connected!");
+            alert.showAndWait();
             try {
                 stage.close();
                 data = new Data();
@@ -88,14 +88,13 @@ public class ConnectWindowController implements Initializable{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             alert.setContentText("Incorrect username or password. Try again.");
             alert.showAndWait();
         }
     }
 
-    private void startMedProd() throws IOException{
+    private void startMedProd() throws IOException {
         stage = new Stage();
         Parent root;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MedProdOverview.fxml"));
@@ -106,7 +105,7 @@ public class ConnectWindowController implements Initializable{
         stage.show();
     }
 
-    public void setStage(Stage stage){
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
 
