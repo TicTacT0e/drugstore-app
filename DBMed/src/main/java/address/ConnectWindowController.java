@@ -1,5 +1,6 @@
 package address;
 
+import company.Data;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import model.DBConnector;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 
@@ -36,6 +38,10 @@ public class ConnectWindowController implements Initializable{
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     private Stage stage;
+
+    private DBConnector dbConnector;
+
+    private Data data;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -70,13 +76,14 @@ public class ConnectWindowController implements Initializable{
     }
 
     private void connect(){
-        DBConnector dbConnector = new DBConnector(userField.getText(), passField.getText());
+        dbConnector = new DBConnector(userField.getText(), passField.getText());
         connection = dbConnector.startConnection();
 
         if (connection) {
             alert.setContentText("Database connected!"); alert.showAndWait();
             try {
                 stage.close();
+                data = new Data();
                 startMedProd();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -91,7 +98,7 @@ public class ConnectWindowController implements Initializable{
     private void startMedProd() throws IOException{
         stage = new Stage();
         Parent root;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MedProdScene.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MedProdOverview.fxml"));
         root = (Parent) loader.load();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
@@ -103,4 +110,7 @@ public class ConnectWindowController implements Initializable{
         this.stage = stage;
     }
 
+    public DBConnector getDbConnector() {
+        return dbConnector;
+    }
 }
