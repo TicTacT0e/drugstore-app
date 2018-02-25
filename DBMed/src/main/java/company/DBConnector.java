@@ -1,4 +1,4 @@
-package model;
+package company;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -38,5 +38,15 @@ public class DBConnector {
 
     public Connection getConnection() {
         return connection;
+    }
+
+    protected void finalize() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

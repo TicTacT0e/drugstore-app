@@ -3,7 +3,6 @@ package company;
 import address.ConnectWindowController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.DBConnector;
 import model.MedProd;
 
 import java.sql.ResultSet;

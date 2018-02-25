@@ -7,6 +7,10 @@ import java.util.ResourceBundle;
 
 public class MedProdOverviewController implements Initializable {
 
+    MedProdOverviewController(){
+
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
