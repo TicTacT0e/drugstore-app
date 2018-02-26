@@ -23,7 +23,7 @@ public class MedProd {
         manufactName = null;
     }
 
-    public MedProd(int medCode, String nameMed, String indications, String unit, int quanityInPac, String manufactName){
+    public MedProd(int medCode, String nameMed, String indications, String unit, int quanityInPac, String manufactName) {
 
         this.medCode = new SimpleIntegerProperty(medCode);
         this.nameMed = new SimpleStringProperty(nameMed);

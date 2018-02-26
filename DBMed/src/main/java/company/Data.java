@@ -35,7 +35,7 @@ public class Data {
         }
     }
 
-    public ObservableList<MedProd> getMedProdsData() {
+    public ObservableList<MedProd> getMedProdData() {
         return medProdsData;
     }
 }
