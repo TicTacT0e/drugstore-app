@@ -41,19 +41,8 @@ public class MedProdOverviewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-/*
-        medProdCollectionData = medProdCollectionData.getData();
-
-        medProdTable.setItems(medProdCollectionData.getData());
-*/
-
         medCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getMedCode()));
         medNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNameMed()));
-
-/*
-        medCodeColumn.setCellValueFactory(new PropertyValueFactory<MedProd, Number>("Medicin Code"));
-        medNameColumn.setCellValueFactory(new PropertyValueFactory<MedProd, String>("Medicin Name"));
-*/
 
         medProdCollectionData.readData();
         medProdTable.setItems(medProdCollectionData.getData());

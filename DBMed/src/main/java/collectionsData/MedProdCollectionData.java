@@ -2,7 +2,7 @@ package collectionsData;
 
 import address.ConnectWindowController;
 import collectionsData.dataInterfaces.MedProdDataTable;
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import company.DBConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,22 +17,16 @@ public class MedProdCollectionData implements MedProdDataTable{
 
     private ObservableList<MedProd> medProdsData = FXCollections.observableArrayList();
 
-    private DBConnector dbConnector;
-
-
-
-    //private ConnectWindowController connectWindowController;
+    private static Connection connection;
 
     public MedProdCollectionData() {
     }
-/*
-    public MedProdCollectionData(DBConnector dbConnector) {
-        this.dbConnector = dbConnector;
-    }
-*/
-    public void readData() {
 
-        java.sql.Connection connection = dbConnector.getConnection();
+    public static void setConnection(Connection connection) {
+        MedProdCollectionData.connection = connection;
+    }
+
+    public void readData() {
 
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSetMedProd = statement.executeQuery("SELECT * FROM db_receipt_of_medicines.medprod");
@@ -46,7 +40,6 @@ public class MedProdCollectionData implements MedProdDataTable{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -61,7 +54,4 @@ public class MedProdCollectionData implements MedProdDataTable{
         return medProdsData;
     }
 
-    public void setDbConnector(DBConnector dbConnector) {
-        this.dbConnector = dbConnector;
-    }
 }

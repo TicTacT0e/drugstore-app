@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import company.DBConnector;
+import model.MedProd;
 
 import java.io.IOException;
 import java.net.URL;
@@ -83,8 +84,7 @@ public class ConnectWindowController implements Initializable {
             alert.showAndWait();
             try {
                 stage.close();
-  //              MedProdCollectionData data = new MedProdCollectionData(dbConnector);
-  //              data.readData();
+                MedProdCollectionData.setConnection(dbConnector.getConnection());
                 startMedProd();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -109,18 +109,4 @@ public class ConnectWindowController implements Initializable {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-    public DBConnector getDbConnector() {
-        return dbConnector;
-    }
-
-    public ConnectWindowController getConnectOb(){
-        return this;
-    }
-
-/*
-    public FXMLLoader getLoader() {
-        return loader;
-    }
-*/
 }
