@@ -1,6 +1,8 @@
 package address;
 
-import company.Data;
+import collectionsData.MedProdCollectionData;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -16,7 +18,7 @@ public class MedProdOverviewController implements Initializable {
     @FXML
     private TableView<MedProd> medProdTable;
     @FXML
-    private TableColumn<MedProd, Number>  medCodeColumn;
+    private TableColumn<MedProd, Number> medCodeColumn;
     @FXML
     private TableColumn<MedProd, String> medNameColumn;
 
@@ -33,17 +35,31 @@ public class MedProdOverviewController implements Initializable {
     @FXML
     private Label manufactNameLabel;
 
-    private Data data;
-
+    private MedProdCollectionData medProdCollectionData = new MedProdCollectionData();
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+/*
+        medProdCollectionData = medProdCollectionData.getData();
 
-        medProdTable.setItems(data.getMedProdData());
+        medProdTable.setItems(medProdCollectionData.getData());
+*/
 
-        medCodeColumn.setCellValueFactory(cellData -> cellData.getValue().getMedCode());
+        medCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getMedCode()));
+        medNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNameMed()));
+
+/*
+        medCodeColumn.setCellValueFactory(new PropertyValueFactory<MedProd, Number>("Medicin Code"));
+        medNameColumn.setCellValueFactory(new PropertyValueFactory<MedProd, String>("Medicin Name"));
+*/
+
+        medProdCollectionData.readData();
+        medProdTable.setItems(medProdCollectionData.getData());
+
 
     }
+
 }
+

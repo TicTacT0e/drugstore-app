@@ -1,6 +1,6 @@
 package address;
 
-import company.Data;
+import collectionsData.MedProdCollectionData;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,7 +40,7 @@ public class ConnectWindowController implements Initializable {
 
     private DBConnector dbConnector;
 
-    private Data data;
+    private FXMLLoader loader;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -83,7 +83,8 @@ public class ConnectWindowController implements Initializable {
             alert.showAndWait();
             try {
                 stage.close();
-                data = new Data();
+  //              MedProdCollectionData data = new MedProdCollectionData(dbConnector);
+  //              data.readData();
                 startMedProd();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -97,7 +98,7 @@ public class ConnectWindowController implements Initializable {
     private void startMedProd() throws IOException {
         stage = new Stage();
         Parent root;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MedProdOverview.fxml"));
+        loader = new FXMLLoader(getClass().getResource("/view/MedProdOverview.fxml"));
         root = (Parent) loader.load();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
@@ -112,4 +113,14 @@ public class ConnectWindowController implements Initializable {
     public DBConnector getDbConnector() {
         return dbConnector;
     }
+
+    public ConnectWindowController getConnectOb(){
+        return this;
+    }
+
+/*
+    public FXMLLoader getLoader() {
+        return loader;
+    }
+*/
 }
