@@ -5,7 +5,7 @@ import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.MedProd;
@@ -20,20 +20,15 @@ public class MedProdOverviewController implements Initializable {
     @FXML
     private TableColumn<MedProd, Number> medCodeColumn;
     @FXML
-    private TableColumn<MedProd, String> medNameColumn;
-
+    private TableColumn<MedProd, String> nameMedColumn;
     @FXML
-    private Label medCodeLabel;
+    private TableColumn<MedProd, String> indicationsColumn;
     @FXML
-    private Label medNameLabel;
+    private TableColumn<MedProd, String> unitColumn;
     @FXML
-    private Label indicationsLabel;
+    private TableColumn<MedProd, Number> quanityInPacColumn;
     @FXML
-    private Label unitLabel;
-    @FXML
-    private Label quanityInPacLabel;
-    @FXML
-    private Label manufactNameLabel;
+    private TableColumn<MedProd, String> manufactNameColumn;
 
     private MedProdCollectionData medProdCollectionData = new MedProdCollectionData();
 
@@ -45,32 +40,28 @@ public class MedProdOverviewController implements Initializable {
         medProdTable.setItems(medProdCollectionData.getData());
 
         medCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getMedCode()));
-        medNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNameMed()));
-
-        showMedProdDetails(null);
-
-        medProdTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showMedProdDetails(newValue));
+        nameMedColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNameMed()));
+        indicationsColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getIndications()));
+        unitColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getUnit()));
+        quanityInPacColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getQuanityInPac()));
+        manufactNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getManufactName()));
 
     }
 
-    private void showMedProdDetails(MedProd medProd){
+    @FXML
+    private void handleDeleteMedProd(){
+        int selectedIndex = medProdTable.getSelectionModel().getSelectedIndex();
 
-        if (medProd != null){
-            medCodeLabel.setText(String.valueOf(medProd.getMedCode()));
-            medNameLabel.setText(medProd.getNameMed());
-            indicationsLabel.setText(medProd.getIndications());
-            unitLabel.setText(medProd.getIndications());
-            quanityInPacLabel.setText(String.valueOf(medProd.getQuanityInPac()));
-            manufactNameLabel.setText(medProd.getManufactName());
-        }else {
-            medCodeLabel.setText("");
-            medNameLabel.setText("");
-            indicationsLabel.setText("");
-            unitLabel.setText("");
-            quanityInPacLabel.setText("");
-            manufactNameLabel.setText("");
+        if (selectedIndex >= 0) {
+            medProdTable.getItems().remove(selectedIndex);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Product Selected");
+            alert.setContentText("Please select a product in the table.");
+
+            alert.showAndWait();
         }
-
     }
 
 }

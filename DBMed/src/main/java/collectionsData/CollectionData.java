@@ -12,5 +12,4 @@ public class CollectionData {
     public static void setConnection(Connection connection) {
         CollectionData.connection = connection;
     }
-
 }
