@@ -1,6 +1,7 @@
 package address;
 
 import collectionsData.MedProdCollectionData;
+import company.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,8 +17,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import company.DBConnector;
-import model.MedProd;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,10 +37,6 @@ public class ConnectWindowController implements Initializable {
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     private Stage stage;
-
-    private DBConnector dbConnector;
-
-    private FXMLLoader loader;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -76,7 +71,7 @@ public class ConnectWindowController implements Initializable {
     }
 
     private void connect() {
-        dbConnector = new DBConnector(userField.getText(), passField.getText());
+        DBConnector dbConnector = new DBConnector(userField.getText(), passField.getText());
         connection = dbConnector.startConnection();
 
         if (connection) {
@@ -98,7 +93,7 @@ public class ConnectWindowController implements Initializable {
     private void startMedProd() throws IOException {
         stage = new Stage();
         Parent root;
-        loader = new FXMLLoader(getClass().getResource("/view/MedProdOverview.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MedProdOverview.fxml"));
         root = (Parent) loader.load();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));

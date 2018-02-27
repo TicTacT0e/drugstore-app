@@ -41,12 +41,35 @@ public class MedProdOverviewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        medCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getMedCode()));
-        medNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNameMed()));
-
         medProdCollectionData.readData();
         medProdTable.setItems(medProdCollectionData.getData());
 
+        medCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getMedCode()));
+        medNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNameMed()));
+
+        showMedProdDetails(null);
+
+        medProdTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showMedProdDetails(newValue));
+
+    }
+
+    private void showMedProdDetails(MedProd medProd){
+
+        if (medProd != null){
+            medCodeLabel.setText(String.valueOf(medProd.getMedCode()));
+            medNameLabel.setText(medProd.getNameMed());
+            indicationsLabel.setText(medProd.getIndications());
+            unitLabel.setText(medProd.getIndications());
+            quanityInPacLabel.setText(String.valueOf(medProd.getQuanityInPac()));
+            manufactNameLabel.setText(medProd.getManufactName());
+        }else {
+            medCodeLabel.setText("");
+            medNameLabel.setText("");
+            indicationsLabel.setText("");
+            unitLabel.setText("");
+            quanityInPacLabel.setText("");
+            manufactNameLabel.setText("");
+        }
 
     }
 

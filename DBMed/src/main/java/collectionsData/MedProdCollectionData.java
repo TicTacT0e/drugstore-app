@@ -1,9 +1,6 @@
 package collectionsData;
 
-import address.ConnectWindowController;
 import collectionsData.dataInterfaces.MedProdDataTable;
-import java.sql.Connection;
-import company.DBConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.MedProd;
@@ -13,18 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class MedProdCollectionData implements MedProdDataTable{
+public class MedProdCollectionData extends CollectionData implements MedProdDataTable {
 
     private ObservableList<MedProd> medProdsData = FXCollections.observableArrayList();
 
-    private static Connection connection;
-
-    public MedProdCollectionData() {
-    }
-
-    public static void setConnection(Connection connection) {
-        MedProdCollectionData.connection = connection;
-    }
 
     public void readData() {
 
@@ -45,9 +34,9 @@ public class MedProdCollectionData implements MedProdDataTable{
     /**
      * EEE BOY
      */
-    public void fillTestData(){
-        medProdsData.add(new MedProd(1, "Pedor", " ", " ",0, " "));
-        medProdsData.add(new MedProd(2, "Pidor", " ", " ",0, " "));
+    public void fillTestData() {
+        medProdsData.add(new MedProd(1, "Pedor", " ", " ", 0, " "));
+        medProdsData.add(new MedProd(2, "Pidor", " ", " ", 0, " "));
     }
 
     public ObservableList<MedProd> getData() {
