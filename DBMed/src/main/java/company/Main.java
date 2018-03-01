@@ -21,7 +21,7 @@ public class Main extends Application {
         primaryStage.setResizable(false);
 
         ConnectWindowController connectWindowController = loader.getController();
-        connectWindowController.setStage(primaryStage);
+        connectWindowController.setConnectWindowStage(primaryStage);
 
         primaryStage.show();
     }

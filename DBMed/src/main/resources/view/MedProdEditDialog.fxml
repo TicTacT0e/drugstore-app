@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="address.MedProdEditDialogController">
    <children>
       <GridPane layoutX="66.0" layoutY="24.0" prefHeight="157.0" prefWidth="281.0" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="24.0">
@@ -46,8 +45,8 @@
       </GridPane>
       <ButtonBar layoutX="206.0" layoutY="195.0" prefHeight="41.0" prefWidth="146.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="195.0">
         <buttons>
-          <Button minWidth="55.0" mnemonicParsing="false" prefHeight="25.0" text="Ok" />
             <Button mnemonicParsing="false" text="Cancel" />
+          <Button minWidth="55.0" mnemonicParsing="false" prefHeight="25.0" text="Ok" />
         </buttons>
       </ButtonBar>
    </children>

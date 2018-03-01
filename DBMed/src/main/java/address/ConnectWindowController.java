@@ -36,11 +36,10 @@ public class ConnectWindowController implements Initializable {
 
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-    private Stage stage;
+    private Stage connectWindowStage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        stage = new Stage();
 
         alert.setTitle("Info");
         alert.setHeaderText(null);
@@ -78,7 +77,7 @@ public class ConnectWindowController implements Initializable {
             alert.setContentText("Database connected!");
             alert.showAndWait();
             try {
-                stage.close();
+                connectWindowStage.close();
                 MedProdCollectionData.setConnection(dbConnector.getConnection());
                 startMedProd();
             } catch (IOException e) {
@@ -91,17 +90,20 @@ public class ConnectWindowController implements Initializable {
     }
 
     private void startMedProd() throws IOException {
-        stage = new Stage();
+        Stage medProdStage = new Stage();
         Parent root;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MedProdOverview.fxml"));
         root = (Parent) loader.load();
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
-        stage.setTitle("MedProd");
-        stage.show();
+        medProdStage.initModality(Modality.WINDOW_MODAL);
+        medProdStage.setScene(new Scene(root, medProdStage.getWidth(), medProdStage.getHeight()));
+        medProdStage.setTitle("MedProd");
+        medProdStage.show();
+
+        MedProdOverviewController medProdOverviewController = loader.getController();
+        medProdOverviewController.setMedProdOverviewStage(connectWindowStage);
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void setConnectWindowStage(Stage connectWindowStage) {
+        this.connectWindowStage = connectWindowStage;
     }
 }
