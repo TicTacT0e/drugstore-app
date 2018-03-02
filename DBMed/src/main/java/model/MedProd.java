@@ -15,12 +15,12 @@ public class MedProd {
     private final StringProperty manufactName;
 
     public MedProd() {
-        medCode = null;
-        nameMed = null;
-        indications = null;
-        unit = null;
-        quantityInPac = null;
-        manufactName = null;
+        medCode = new SimpleIntegerProperty(0);
+        nameMed = new SimpleStringProperty("");
+        indications = new SimpleStringProperty("");
+        unit = new SimpleStringProperty("");
+        quantityInPac = new SimpleIntegerProperty(0);
+        manufactName = new SimpleStringProperty("");
     }
 
     public MedProd(int medCode, String nameMed, String indications, String unit, int quantityInPac, String manufactName) {

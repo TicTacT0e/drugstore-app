@@ -5,7 +5,7 @@ import model.MedProd;
 
 public interface MedProdDataTable extends DataTable {
 
-    ObservableList<MedProd> getData();
+    ObservableList<MedProd> getMedProdData();
 
     /**
      * Coming soon

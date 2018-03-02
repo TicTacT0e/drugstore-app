@@ -35,11 +35,11 @@ public class MedProdCollectionData extends CollectionData implements MedProdData
      * EEE BOY
      */
     public void fillTestData() {
-        medProdsData.add(new MedProd(1, "Pedor", " ", " ", 0, " "));
-        medProdsData.add(new MedProd(2, "Pidor", " ", " ", 0, " "));
+        medProdsData.add(new MedProd(1, "СhopChop", " ", " ", 0, " "));
+        medProdsData.add(new MedProd(2, "SlapSlap", " ", " ", 0, " "));
     }
 
-    public ObservableList<MedProd> getData() {
+    public ObservableList<MedProd> getMedProdData() {
         return medProdsData;
     }
 
