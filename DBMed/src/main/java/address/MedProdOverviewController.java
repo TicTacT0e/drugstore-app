@@ -62,11 +62,19 @@ public class MedProdOverviewController implements Initializable {
 
     @FXML
     private void handleDeleteMedProd() {
-        if (medProdTable.getSelectionModel().getSelectedIndex() >= 0) {
-            medProdTable.getItems().remove(medProdTable.getSelectionModel().getSelectedIndex());
-            medProdCollectionData.update();
+        int selectedIndex = medProdTable.getSelectionModel().getSelectedIndex();
+
+        if (selectedIndex >= 0) {
+            medProdCollectionData.delete(++selectedIndex);
         } else
             selectionError();
+    }
+
+    /**
+     * :(
+     */
+    public void tableViewDelete(int deleteIndex){
+        medProdTable.getItems().remove(deleteIndex);
     }
 
     @FXML

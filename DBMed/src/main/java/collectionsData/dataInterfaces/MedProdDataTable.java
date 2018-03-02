@@ -9,4 +9,6 @@ public interface MedProdDataTable extends DataTable {
 
     void update();
 
+    void delete(int indexMedCode);
+
 }

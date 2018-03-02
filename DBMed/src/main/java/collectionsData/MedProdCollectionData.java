@@ -1,8 +1,10 @@
 package collectionsData;
 
+import address.MedProdOverviewController;
 import collectionsData.dataInterfaces.MedProdDataTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import model.MedProd;
 
 import java.sql.ResultSet;
@@ -37,8 +39,27 @@ public class MedProdCollectionData extends CollectionData implements MedProdData
         }
     }
 
+    public void delete(int indexMedCode){
+
+        String deleteQuery = "DELETE FROM db_receipt_of_medicines.medprod WHERE medCode = '" + String.valueOf(indexMedCode) + "';";
+
+        try(Statement statement = connection.createStatement()){
+            statement.executeUpdate(deleteQuery);
+
+            MedProdOverviewController medProdOverviewController = new MedProdOverviewController();
+            medProdOverviewController.tableViewDelete(--indexMedCode);
+        }catch (SQLException e){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error!");
+            alert.setHeaderText("Cannot delete.");
+            alert.setContentText("Cannot delete a parent row.");
+
+            alert.showAndWait();
+        }
+    }
+
     /**
-     * Максимально кривое исполнение, надо переделать по человечески
+     * Максимально кривое исполнение, надо переделать по человечески, сегодня и переделаю
      */
     public void update(){
 
@@ -75,7 +96,7 @@ public class MedProdCollectionData extends CollectionData implements MedProdData
         }catch (SQLException e){
             e.printStackTrace();
         }
-        
+
     }
 
     /**
