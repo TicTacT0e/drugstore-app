@@ -100,7 +100,7 @@ public class MedProdEditDialogController implements Initializable {
             try {
                 Integer.parseInt(quantityInPacEditField.getText());
             }catch (NumberFormatException e){
-                errorMessage += "No valid quantity. it must be an integer number.\n";
+                errorMessage += "No valid quantity. It must be an integer number.\n";
             }
         }
         if(manufactNameEditField.getText() == null || manufactNameEditField.getText().length() == 0)

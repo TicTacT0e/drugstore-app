@@ -7,18 +7,6 @@ public interface MedProdDataTable extends DataTable {
 
     ObservableList<MedProd> getMedProdData();
 
-    /**
-     * Coming soon
-     */
-//    void add(MedProd medProd);
+    void update();
 
-    /**
-     * Coming soon
-     */
-//    void update(MedProd medProd);
-
-    /**
-     * Coming soon
-     */
-//    void delete(MedProd medProd);
 }

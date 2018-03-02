@@ -64,6 +64,7 @@ public class MedProdOverviewController implements Initializable {
     private void handleDeleteMedProd() {
         if (medProdTable.getSelectionModel().getSelectedIndex() >= 0) {
             medProdTable.getItems().remove(medProdTable.getSelectionModel().getSelectedIndex());
+            medProdCollectionData.update();
         } else
             selectionError();
     }
@@ -74,8 +75,10 @@ public class MedProdOverviewController implements Initializable {
         if(selectedMedProd != null) {
             boolean okClicked = showMedProdEditDialog(selectedMedProd, medProdTable.getSelectionModel().getSelectedIndex());
 
-            if (okClicked)
+            if (okClicked) {
                 refresh();
+                medProdCollectionData.update();
+            }
         }
         else
         selectionError();
@@ -90,6 +93,7 @@ public class MedProdOverviewController implements Initializable {
             tempMedProd.setMedCode(++medCode);
             medProdCollectionData.getMedProdData().add(tempMedProd);
             refresh();
+            medProdCollectionData.update();
         }
     }
 
