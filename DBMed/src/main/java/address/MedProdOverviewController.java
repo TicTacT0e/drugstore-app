@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.MedProd;
@@ -33,7 +32,7 @@ public class MedProdOverviewController implements Initializable {
     @FXML
     private TableColumn<MedProd, String> unitColumn;
     @FXML
-    private TableColumn<MedProd, Number> quanityInPacColumn;
+    private TableColumn<MedProd, Number> quantityInPacColumn;
     @FXML
     private TableColumn<MedProd, String> manufactNameColumn;
 
@@ -57,11 +56,8 @@ public class MedProdOverviewController implements Initializable {
         nameMedColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNameMed()));
         indicationsColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getIndications()));
         unitColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getUnit()));
-        quanityInPacColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getQuanityInPac()));
+        quantityInPacColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getQuantityInPac()));
         manufactNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getManufactName()));
-
-        //medProdTable.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> handleEditMedProd(newValue)));
-
     }
 
     @FXML
@@ -70,21 +66,19 @@ public class MedProdOverviewController implements Initializable {
 
         if (selectedIndex >= 0) {
             medProdTable.getItems().remove(selectedIndex);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Product Selected");
-            alert.setContentText("Please select a product in the table.");
-
-            alert.showAndWait();
-        }
+        } else
+            selectionError();
     }
 
     @FXML
     private void handleEditMedProd() {
         int selectedIndex = medProdTable.getSelectionModel().getSelectedIndex();
+        System.out.println(selectedIndex);
 
-        showMedProdEditDialog(medProdTable.getItems().get(selectedIndex));
+        if(selectedIndex >= 0)
+            showMedProdEditDialog(medProdTable.getSelectionModel().getSelectedItem(), selectedIndex);
+        else
+            selectionError();
     }
 
     @FXML
@@ -92,32 +86,40 @@ public class MedProdOverviewController implements Initializable {
 
     }
 
-    public boolean showMedProdEditDialog(MedProd medProd){
+    private void showMedProdEditDialog(MedProd medProd, int selectedIndex){
 
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/MedProdEditDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MedProdEditDialog.fxml"));
             Parent root = (Parent) loader.load();
 
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit production");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(medProdOverviewStage);
-            Scene scene = new Scene(root, dialogStage.getWidth(), dialogStage.getHeight());
-            dialogStage.setScene(scene);
+            Stage editDialogStage = new Stage();
+            editDialogStage.setTitle("Edit production");
+            editDialogStage.initModality(Modality.WINDOW_MODAL);
+            editDialogStage.initOwner(medProdOverviewStage);
+            Scene scene = new Scene(root, editDialogStage.getWidth(), editDialogStage.getHeight());
+            editDialogStage.setResizable(false);
+            editDialogStage.setScene(scene);
 
             MedProdEditDialogController medProdEditDialogController = loader.getController();
-            medProdEditDialogController.setEditStage(medProdOverviewStage);
+            medProdEditDialogController.setEditStage(editDialogStage);
+            medProdEditDialogController.setEditLabel(++selectedIndex);
             medProdEditDialogController.setMedProd(medProd);
 
-            dialogStage.showAndWait();
+            editDialogStage.showAndWait();
 
-            return medProdEditDialogController.isOkClicked();
+
         } catch (IOException e){
             e.printStackTrace();
-            return false;
         }
+    }
 
+    private void selectionError(){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("No Selection");
+        alert.setHeaderText("No Product Selected");
+        alert.setContentText("Please select a product in the table.");
+
+        alert.showAndWait();
     }
 
 }

@@ -11,7 +11,7 @@ public class MedProd {
     private final StringProperty nameMed;
     private final StringProperty indications;
     private final StringProperty unit;
-    private final IntegerProperty quanityInPac;
+    private final IntegerProperty quantityInPac;
     private final StringProperty manufactName;
 
     public MedProd() {
@@ -19,17 +19,17 @@ public class MedProd {
         nameMed = null;
         indications = null;
         unit = null;
-        quanityInPac = null;
+        quantityInPac = null;
         manufactName = null;
     }
 
-    public MedProd(int medCode, String nameMed, String indications, String unit, int quanityInPac, String manufactName) {
+    public MedProd(int medCode, String nameMed, String indications, String unit, int quantityInPac, String manufactName) {
 
         this.medCode = new SimpleIntegerProperty(medCode);
         this.nameMed = new SimpleStringProperty(nameMed);
         this.indications = new SimpleStringProperty(indications);
         this.unit = new SimpleStringProperty(unit);
-        this.quanityInPac = new SimpleIntegerProperty(quanityInPac);
+        this.quantityInPac = new SimpleIntegerProperty(quantityInPac);
         this.manufactName = new SimpleStringProperty(manufactName);
     }
 
@@ -49,8 +49,8 @@ public class MedProd {
         this.unit.set(unit);
     }
 
-    public void setQuanityInPac(int quanityInPac) {
-        this.quanityInPac.set(quanityInPac);
+    public void setQuantityInPac(int quantityInPac) {
+        this.quantityInPac.set(quantityInPac);
     }
 
     public void setManufactName(String manufactName) {
@@ -89,12 +89,12 @@ public class MedProd {
         return unit;
     }
 
-    public int getQuanityInPac() {
-        return quanityInPac.get();
+    public int getQuantityInPac() {
+        return quantityInPac.get();
     }
 
-    public IntegerProperty quanityInPacProperty() {
-        return quanityInPac;
+    public IntegerProperty quantityInPacProperty() {
+        return quantityInPac;
     }
 
     public String getManufactName() {

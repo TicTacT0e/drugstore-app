@@ -19,7 +19,7 @@
                       <TableColumn fx:id="nameMedColumn" prefWidth="75.0" text="nameMed" />
                         <TableColumn fx:id="indicationsColumn" prefWidth="75.0" text="indications" />
                         <TableColumn fx:id="unitColumn" prefWidth="75.0" text="unit" />
-                        <TableColumn fx:id="quanityInPacColumn" prefWidth="75.0" text="quanityInPac" />
+                        <TableColumn fx:id="quantityInPacColumn" prefWidth="75.0" text="quantityInPac" />
                         <TableColumn fx:id="manufactNameColumn" prefWidth="75.0" text="manufactName" />
                     </columns>
                      <columnResizePolicy>

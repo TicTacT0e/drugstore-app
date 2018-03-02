@@ -91,9 +91,8 @@ public class ConnectWindowController implements Initializable {
 
     private void startMedProd() throws IOException {
         Stage medProdStage = new Stage();
-        Parent root;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MedProdOverview.fxml"));
-        root = (Parent) loader.load();
+        Parent root = (Parent) loader.load();
         medProdStage.initModality(Modality.WINDOW_MODAL);
         medProdStage.setScene(new Scene(root, medProdStage.getWidth(), medProdStage.getHeight()));
         medProdStage.setTitle("MedProd");

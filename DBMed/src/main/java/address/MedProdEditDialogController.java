@@ -2,10 +2,11 @@ package address;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.MedProd;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,7 +22,7 @@ public class MedProdEditDialogController implements Initializable {
     @FXML
     private TextField unitEditField;
     @FXML
-    private TextField quanityInPacEditField;
+    private TextField quantityInPacEditField;
     @FXML
     private TextField manufactNameEditField;
 
@@ -29,7 +30,6 @@ public class MedProdEditDialogController implements Initializable {
 
     private MedProd medProd;
 
-    private boolean okClicked = false;
 
 
     @Override
@@ -39,7 +39,7 @@ public class MedProdEditDialogController implements Initializable {
 
     @FXML
     private void handleOk() {
-
+        editStage.close();
     }
 
     @FXML
@@ -52,11 +52,12 @@ public class MedProdEditDialogController implements Initializable {
         this.editStage = editStage;
     }
 
-    public boolean isOkClicked() {
-        return okClicked;
-    }
 
     public void setMedProd(MedProd medProd) {
         this.medProd = medProd;
+    }
+
+    public void setEditLabel(int numEditProd){
+        medCodeEditLabel.setText(String.valueOf(numEditProd));
     }
 }
