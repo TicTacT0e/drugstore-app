@@ -1,6 +1,6 @@
 package collectionsData.dataInterfaces;
 
-public interface DataTable {
+public interface DataInterface {
 
     void readData();
 

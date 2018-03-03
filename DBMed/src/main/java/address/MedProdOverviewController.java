@@ -1,6 +1,8 @@
 package address;
 
 import collectionsData.MedProdCollectionData;
+import collectionsData.SuppliersCollectionData;
+import collectionsData.SupplyCollectionData;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
@@ -14,9 +16,12 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.MedProd;
+import model.Suppliers;
+import model.Supply;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class MedProdOverviewController implements Initializable {
@@ -38,7 +43,44 @@ public class MedProdOverviewController implements Initializable {
 
     private MedProdCollectionData medProdCollectionData = new MedProdCollectionData();
 
+
     private Stage medProdOverviewStage;
+
+
+    @FXML
+    private TableView<Supply> supplyTable;
+    @FXML
+    private TableColumn<Supply, Number> supplyMedCodeColumn;
+    @FXML
+    private TableColumn<Supply, Number> supplySupplierCodeColumn;
+    @FXML
+    private TableColumn<Supply, LocalDate> addDateColumn;
+    @FXML
+    private TableColumn<Supply, Number> costColumn;
+    @FXML
+    private TableColumn<Supply, Number> quantityColumn;
+    @FXML
+    private TableColumn<Supply, Number> addCodeColumn;
+
+    private SupplyCollectionData supplyCollectionData = new SupplyCollectionData();
+
+
+    @FXML
+    private TableView<Suppliers> suppliersTable;
+    @FXML
+    private TableColumn<Suppliers, Number> supplierCodeColumn;
+    @FXML
+    private TableColumn<Suppliers, String> abbreviationColumn;
+    @FXML
+    private TableColumn<Suppliers, String> fullTitleColumn;
+    @FXML
+    private TableColumn<Suppliers, String> legalAddressColumn;
+    @FXML
+    private TableColumn<Suppliers, Number> phoneColumn;
+    @FXML
+    private TableColumn<Suppliers, String> headNameColumn;
+
+    private SuppliersCollectionData suppliersCollectionData = new SuppliersCollectionData();
 
 
     public void setMedProdOverviewStage(Stage medProdOverviewStage) {
@@ -59,6 +101,33 @@ public class MedProdOverviewController implements Initializable {
         quantityInPacColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getQuantityInPac()));
         manufactNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getManufactName()));
 
+        supplyCollectionData.readData();
+        supplyTable.setItems(supplyCollectionData.getSupplyData());
+
+        suppliersCollectionData.readData();
+        suppliersTable.setItems(suppliersCollectionData.getSuppliersData());
+
+        medProdTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showSupplyDetails(newValue));
+
+        /*
+        supplyCollectionData.readData();
+        supplyTable.setItems(supplyCollectionData.getSupplyData());
+        supplyMedCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getMedCode()));
+
+        suppliersCollectionData.readData();
+        suppliersTable.setItems(suppliersCollectionData.getSuppliersData());
+        supplierCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getSupplierCode()));
+        */
+    }
+
+    private void showSupplyDetails(MedProd medProd){
+/*
+        if(medProd != null){
+
+            int supplyMedProd
+
+        }
+*/
     }
 
     @FXML

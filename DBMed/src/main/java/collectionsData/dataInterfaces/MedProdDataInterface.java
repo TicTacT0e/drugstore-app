@@ -3,7 +3,7 @@ package collectionsData.dataInterfaces;
 import javafx.collections.ObservableList;
 import model.MedProd;
 
-public interface MedProdDataTable extends DataTable {
+public interface MedProdDataInterface extends DataInterface {
 
     ObservableList<MedProd> getMedProdData();
 

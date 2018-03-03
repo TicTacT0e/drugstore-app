@@ -1,6 +1,6 @@
 package collectionsData;
 
-import collectionsData.dataInterfaces.MedProdDataTable;
+import collectionsData.dataInterfaces.MedProdDataInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -11,13 +11,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class MedProdCollectionData extends CollectionData implements MedProdDataTable {
+public class MedProdCollectionData extends CollectionData implements MedProdDataInterface {
 
     private ObservableList<MedProd> medProdsData = FXCollections.observableArrayList();
 
     public static boolean deleteRow;
 
-
+    @Override
     public void readData() {
 
         try (Statement statement = connection.createStatement()) {
@@ -28,12 +28,26 @@ public class MedProdCollectionData extends CollectionData implements MedProdData
                         resultSetMedProd.getString(3), resultSetMedProd.getString(4),
                         resultSetMedProd.getInt(5), resultSetMedProd.getString(6)));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    @Override
+    public void update(MedProd medProd) {
+
+        try (Statement statement = connection.createStatement()) {
+            String updateQuery = "UPDATE db_receipt_of_medicines.medprod SET nameMed = '" + medProd.getNameMed() + "', indications = '" + medProd.getIndications() +
+                    "', unit = '" + medProd.getUnit() + "', quanityInPac = '" + String.valueOf(medProd.getQuantityInPac()) + "', " +
+                    "manufactName = '" + medProd.getManufactName() + "' WHERE medCode = '" + String.valueOf(medProd.getMedCode()) + "';";
+
+            statement.executeUpdate(updateQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void delete(MedProd medProd) {
 
         deleteRow = false;
@@ -53,6 +67,7 @@ public class MedProdCollectionData extends CollectionData implements MedProdData
         }
     }
 
+    @Override
     public void insert() {
 
         try (Statement statement = connection.createStatement()) {
@@ -66,23 +81,9 @@ public class MedProdCollectionData extends CollectionData implements MedProdData
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
-    public void update(MedProd medProd) {
-
-        try (Statement statement = connection.createStatement()) {
-            String updateQuery = "UPDATE db_receipt_of_medicines.medprod SET nameMed = '" + medProd.getNameMed() + "', indications = '" + medProd.getIndications() +
-                    "', unit = '" + medProd.getUnit() + "', quanityInPac = '" + String.valueOf(medProd.getQuantityInPac()) + "', " +
-                    "manufactName = '" + medProd.getManufactName() + "' WHERE medCode = '" + String.valueOf(medProd.getMedCode()) + "';";
-
-            statement.executeUpdate(updateQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
+    @Override
     public ObservableList<MedProd> getMedProdData() {
         return medProdsData;
     }

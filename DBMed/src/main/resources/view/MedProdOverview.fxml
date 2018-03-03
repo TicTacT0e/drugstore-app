@@ -30,13 +30,69 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <ButtonBar layoutX="519.0" layoutY="192.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="519.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="192.0">
-                    <buttons>
-                      <Button mnemonicParsing="false" onAction="#handleAddMedProd" text="New..." />
-                        <Button mnemonicParsing="false" onAction="#handleEditMedProd" text="Edit..." />
-                        <Button mnemonicParsing="false" onAction="#handleDeleteMedProd" text="Delete" />
-                    </buttons>
-                  </ButtonBar>
+                  <SplitPane dividerPositions="0.6331658291457286" layoutX="419.0" prefHeight="246.0" prefWidth="798.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="244.0" prefWidth="638.0">
+                           <children>
+                              <SplitPane dividerPositions="0.5" layoutX="143.0" layoutY="22.0" orientation="VERTICAL" prefHeight="244.0" prefWidth="501.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                       <children>
+                                          <TableView fx:id="supplyTable" layoutX="132.0" layoutY="-48.0" prefHeight="118.0" prefWidth="499.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                              <TableColumn fx:id="supplyMedCodeColumn" prefWidth="75.0" text="medCode" />
+                                              <TableColumn fx:id="supplySupplierCodeColumn" prefWidth="75.0" text="supplierCode" />
+                                                <TableColumn fx:id="addDateColumn" prefWidth="75.0" text="addDate" />
+                                                <TableColumn fx:id="costColumn" prefWidth="75.0" text="cost" />
+                                                <TableColumn fx:id="quantityColumn" prefWidth="75.0" text="quanity" />
+                                                <TableColumn fx:id="addCodeColumn" prefWidth="75.0" text="addCode" />
+                                            </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                       <children>
+                                          <TableView fx:id="suppliersTable" layoutX="190.0" layoutY="-55.0" prefHeight="118.0" prefWidth="499.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                              <TableColumn fx:id="supplierCodeColumn" prefWidth="75.0" text="supplierCode" />
+                                              <TableColumn fx:id="abbreviationColumn" prefWidth="75.0" text="abbreviation" />
+                                                <TableColumn fx:id="fullTitleColumn" prefWidth="75.0" text="fullTitle" />
+                                                <TableColumn fx:id="legalAddressColumn" prefWidth="75.0" text="legalAddress" />
+                                                <TableColumn fx:id="phoneColumn" prefWidth="75.0" text="phone" />
+                                                <TableColumn fx:id="headNameColumn" prefWidth="75.0" text="headName" />
+                                            </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="244.0" prefWidth="304.0">
+                           <children>
+                              <ButtonBar layoutX="119.0" layoutY="182.0" prefHeight="48.0" prefWidth="0.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="144.0" AnchorPane.topAnchor="182.0">
+                                <buttons>
+                                  <Button mnemonicParsing="false" onAction="#handleAddMedProd" text="New..." />
+                                    <Button minWidth="71.0" mnemonicParsing="false" onAction="#handleEditMedProd" prefHeight="25.0" prefWidth="77.0" text="Edit..." />
+                                    <Button mnemonicParsing="false" onAction="#handleDeleteMedProd" text="Delete" />
+                                </buttons>
+                              </ButtonBar>
+                              <ButtonBar layoutX="6.0" layoutY="57.0" prefHeight="95.0" prefWidth="252.0" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="57.0">
+                                <buttons>
+                                  <Button mnemonicParsing="false" text="View supply" />
+                                    <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="123.0" text="View suppliers" />
+                                </buttons>
+                              </ButtonBar>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
                </children>
             </AnchorPane>
         </items>
