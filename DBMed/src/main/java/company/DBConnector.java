@@ -40,7 +40,6 @@ public class DBConnector {
         return connection;
     }
 
-    /*
     protected void finalize() {
         if (connection != null) {
             try {
@@ -50,5 +49,4 @@ public class DBConnector {
             }
         }
     }
-    */
 }
