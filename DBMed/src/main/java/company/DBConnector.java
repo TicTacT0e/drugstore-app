@@ -3,6 +3,7 @@ package company;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBConnector {
 
@@ -40,6 +41,7 @@ public class DBConnector {
         return connection;
     }
 
+/*
     protected void finalize() {
         if (connection != null) {
             try {
@@ -49,4 +51,5 @@ public class DBConnector {
             }
         }
     }
+*/
 }

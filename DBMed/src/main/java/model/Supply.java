@@ -28,7 +28,7 @@ public class Supply {
         this.admissionDate = new SimpleObjectProperty<LocalDate>(admissionDate);
         this.cost = new SimpleFloatProperty(cost);
         this.quantity = new SimpleIntegerProperty(quantity);
-        this.admissionCode = new SimpleIntegerProperty(quantity);
+        this.admissionCode = new SimpleIntegerProperty(admissionCode);
     }
 
     public void setMedCode(int medCode) {

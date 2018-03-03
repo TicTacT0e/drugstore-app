@@ -3,8 +3,9 @@ package address;
 import collectionsData.MedProdCollectionData;
 import collectionsData.SuppliersCollectionData;
 import collectionsData.SupplyCollectionData;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
-import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -102,32 +103,60 @@ public class MedProdOverviewController implements Initializable {
         manufactNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getManufactName()));
 
         supplyCollectionData.readData();
-        supplyTable.setItems(supplyCollectionData.getSupplyData());
 
         suppliersCollectionData.readData();
-        suppliersTable.setItems(suppliersCollectionData.getSuppliersData());
 
+        /**
+         * Слушатель для supply(showSupplyDetails)
+         */
         medProdTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showSupplyDetails(newValue));
 
-        /*
-        supplyCollectionData.readData();
-        supplyTable.setItems(supplyCollectionData.getSupplyData());
-        supplyMedCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getMedCode()));
+        /**
+         * Слушатель для suppliers(showSuppliersDetails)
+         */
+        medProdTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showSuppliersDetails(newValue));
+    }
 
-        suppliersCollectionData.readData();
-        suppliersTable.setItems(suppliersCollectionData.getSuppliersData());
-        supplierCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getSupplierCode()));
-        */
+    private void showSuppliersDetails(MedProd medProd){
+
+        if(medProd != null){
+
+            int medCode = medProd.getMedCode();
+            int supplierCode = supplyCollectionData.getSupplyData().get(--medCode).getSupplierCode();
+            ObservableList<Suppliers> tempSupplierRow = FXCollections.observableArrayList();
+
+            tempSupplierRow.add(suppliersCollectionData.getSuppliersData().get(--supplierCode));
+
+            suppliersTable.setItems(tempSupplierRow);
+
+            supplierCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getSupplierCode()));
+            abbreviationColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getAbbreviation()));
+            fullTitleColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getFullTitle()));
+            legalAddressColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLegalAddress()));
+            phoneColumn.setCellValueFactory(cellData -> new ReadOnlyLongWrapper(cellData.getValue().getPhone()));
+            headNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getFullNameOfHead()));
+        }
+
     }
 
     private void showSupplyDetails(MedProd medProd){
-/*
+
         if(medProd != null){
 
-            int supplyMedProd
+            int medCode = medProd.getMedCode();
+            ObservableList<Supply> tempSupplyRow = FXCollections.observableArrayList();
 
-        }
-*/
+            tempSupplyRow.add(supplyCollectionData.getSupplyData().get(--medCode));
+
+            supplyTable.setItems(tempSupplyRow);
+
+            supplyMedCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getMedCode()));
+            supplySupplierCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getSupplierCode()));
+            addDateColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getAdmissionDate()));
+            costColumn.setCellValueFactory(cellData -> new ReadOnlyFloatWrapper(cellData.getValue().getCost()));
+            quantityColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getQuantity()));
+            addCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getAdmissionCode()));
+    }
     }
 
     @FXML
