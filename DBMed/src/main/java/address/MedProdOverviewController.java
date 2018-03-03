@@ -58,6 +58,7 @@ public class MedProdOverviewController implements Initializable {
         unitColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getUnit()));
         quantityInPacColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getQuantityInPac()));
         manufactNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getManufactName()));
+
     }
 
     @FXML
@@ -65,17 +66,15 @@ public class MedProdOverviewController implements Initializable {
         int selectedIndex = medProdTable.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex >= 0) {
-            medProdCollectionData.delete(++selectedIndex);
+            medProdCollectionData.delete(medProdTable.getSelectionModel().getSelectedItem());
+            if(MedProdCollectionData.deleteRow) {
+                medProdTable.getItems().remove(selectedIndex);
+                medProdTable.refresh();
+            }
         } else
             selectionError();
     }
 
-    /**
-     * :(
-     */
-    public void tableViewDelete(int deleteIndex){
-        medProdTable.getItems().remove(deleteIndex);
-    }
 
     @FXML
     private void handleEditMedProd() {
@@ -84,8 +83,8 @@ public class MedProdOverviewController implements Initializable {
             boolean okClicked = showMedProdEditDialog(selectedMedProd, medProdTable.getSelectionModel().getSelectedIndex());
 
             if (okClicked) {
-                refresh();
-                medProdCollectionData.update();
+                medProdTable.refresh();
+                medProdCollectionData.update(selectedMedProd);
             }
         }
         else
@@ -100,8 +99,8 @@ public class MedProdOverviewController implements Initializable {
             int medCode = medProdCollectionData.getMedProdData().size();
             tempMedProd.setMedCode(++medCode);
             medProdCollectionData.getMedProdData().add(tempMedProd);
-            refresh();
-            medProdCollectionData.update();
+            medProdTable.refresh();
+            medProdCollectionData.insert();
         }
     }
 
@@ -142,10 +141,5 @@ public class MedProdOverviewController implements Initializable {
 
         alert.showAndWait();
     }
-
-    private void refresh(){
-        medProdTable.refresh();
-    }
-
 }
 

@@ -1,6 +1,5 @@
 package collectionsData;
 
-import address.MedProdOverviewController;
 import collectionsData.dataInterfaces.MedProdDataTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,15 +9,13 @@ import model.MedProd;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 
 public class MedProdCollectionData extends CollectionData implements MedProdDataTable {
 
     private ObservableList<MedProd> medProdsData = FXCollections.observableArrayList();
 
-    private int initialSize;
-    private int finalSize;
+    public static boolean deleteRow;
 
 
     public void readData() {
@@ -32,79 +29,58 @@ public class MedProdCollectionData extends CollectionData implements MedProdData
                         resultSetMedProd.getInt(5), resultSetMedProd.getString(6)));
             }
 
-            initialSize = medProdsData.size();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void delete(int indexMedCode){
+    public void delete(MedProd medProd) {
 
-        String deleteQuery = "DELETE FROM db_receipt_of_medicines.medprod WHERE medCode = '" + String.valueOf(indexMedCode) + "';";
+        deleteRow = false;
+        String deleteQuery = "DELETE FROM db_receipt_of_medicines.medprod WHERE medCode = '" + String.valueOf(medProd.getMedCode()) + "';";
 
-        try(Statement statement = connection.createStatement()){
+        try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(deleteQuery);
 
-            MedProdOverviewController medProdOverviewController = new MedProdOverviewController();
-            medProdOverviewController.tableViewDelete(--indexMedCode);
-        }catch (SQLException e){
+            deleteRow = true;
+        } catch (SQLException e) {
+            deleteRow = false;
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error!");
             alert.setHeaderText("Cannot delete.");
             alert.setContentText("Cannot delete a parent row.");
-
             alert.showAndWait();
         }
     }
 
-    /**
-     * Максимально кривое исполнение, надо переделать по человечески, сегодня и переделаю
-     */
-    public void update(){
-
-        finalSize = medProdsData.size();
-
-        ArrayList<String> update = new ArrayList<>();
-        for (int i = 0; i < initialSize; i++){
-            update.add("UPDATE db_receipt_of_medicines.medprod SET nameMed = '" + medProdsData.get(i).getNameMed() + "', indications = '" + medProdsData.get(i).getIndications() +
-                    "', unit = '" + medProdsData.get(i).getUnit() + "', quanityInPac = '" + String.valueOf(medProdsData.get(i).getQuantityInPac()) + "', " +
-                            "manufactName = '" + medProdsData.get(i).getManufactName() + "' WHERE medCode = '" + String.valueOf(medProdsData.get(i).getMedCode()) + "';");
-        }
-
-        ArrayList<String> insert = new ArrayList<>();
-        for (int i = initialSize; i < finalSize; i++){
-            insert.add("INSERT INTO db_receipt_of_medicines.medprod (medCode, nameMed, indications, unit, quanityInPac, manufactName) " +
-                    "VALUES (" + String.valueOf(medProdsData.get(i).getMedCode()) + ", '" + medProdsData.get(i).getNameMed() + "', '" + medProdsData.get(i).getIndications() + "', '" +
-                    medProdsData.get(i).getUnit() + "', " + String.valueOf(medProdsData.get(i).getQuantityInPac()) + ", '" + medProdsData.get(i).getManufactName() + "');");
-        }
-
-        for (String line : update){
-            System.out.println(line);
-        }
-        for (String line : insert){
-            System.out.println(line);
-        }
+    public void insert() {
 
         try (Statement statement = connection.createStatement()) {
+            String inserQuery = "INSERT INTO db_receipt_of_medicines.medprod (medCode, nameMed, indications, unit, quanityInPac, manufactName) " +
+                    "VALUES (" + String.valueOf(medProdsData.get(medProdsData.size() - 1).getMedCode()) + ", '" + medProdsData.get(medProdsData.size() - 1).getNameMed() +
+                    "', '" + medProdsData.get(medProdsData.size() - 1).getIndications() + "', '" + medProdsData.get(medProdsData.size() - 1).getUnit() +
+                    "', " + String.valueOf(medProdsData.get(medProdsData.size() - 1).getQuantityInPac()) + ", " +
+                    "'" + medProdsData.get(medProdsData.size() - 1).getManufactName() + "');";
 
-            for (String updateSqlQuery : update)
-                statement.executeUpdate(updateSqlQuery);
-
-            for (String insertSqlQuery : insert)
-                statement.execute(insertSqlQuery);
-        }catch (SQLException e){
+            statement.execute(inserQuery);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
-    /**
-     * EEE BOY
-     */
-    public void fillTestData() {
-        medProdsData.add(new MedProd(1, "СhopChop", " ", " ", 0, " "));
-        medProdsData.add(new MedProd(2, "SlapSlap", " ", " ", 0, " "));
+    public void update(MedProd medProd) {
+
+        try (Statement statement = connection.createStatement()) {
+            String updateQuery = "UPDATE db_receipt_of_medicines.medprod SET nameMed = '" + medProd.getNameMed() + "', indications = '" + medProd.getIndications() +
+                    "', unit = '" + medProd.getUnit() + "', quanityInPac = '" + String.valueOf(medProd.getQuantityInPac()) + "', " +
+                    "manufactName = '" + medProd.getManufactName() + "' WHERE medCode = '" + String.valueOf(medProd.getMedCode()) + "';";
+
+            statement.executeUpdate(updateQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public ObservableList<MedProd> getMedProdData() {

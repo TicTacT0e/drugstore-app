@@ -7,8 +7,10 @@ public interface MedProdDataTable extends DataTable {
 
     ObservableList<MedProd> getMedProdData();
 
-    void update();
+    void update(MedProd medProd);
 
-    void delete(int indexMedCode);
+    void delete(MedProd medProd);
+
+    void insert();
 
 }
