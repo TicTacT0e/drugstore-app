@@ -27,7 +27,7 @@ public class MedProdEditDialogController implements Initializable {
     @FXML
     private TextField manufactNameEditField;
 
-    private Stage editStage;
+    private Stage editMedProdStage;
 
     private MedProd medProd;
 
@@ -55,18 +55,18 @@ public class MedProdEditDialogController implements Initializable {
             medProd.setManufactName(manufactNameEditField.getText());
 
             okClicked = true;
-            editStage.close();
+            editMedProdStage.close();
         }
     }
 
     @FXML
     private void handleCancel() {
-        editStage.close();
+        editMedProdStage.close();
     }
 
 
-    public void setEditStage(Stage editStage) {
-        this.editStage = editStage;
+    public void setEditMedProdStage(Stage editMedProdStage) {
+        this.editMedProdStage = editMedProdStage;
     }
 
 
@@ -110,7 +110,7 @@ public class MedProdEditDialogController implements Initializable {
             return true;
         }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(editStage);
+            alert.initOwner(editMedProdStage);
             alert.setTitle("Invalid Fields");
             alert.setHeaderText("Please correct invalid fields");
             alert.setContentText(errorMessage);

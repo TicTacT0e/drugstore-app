@@ -44,7 +44,7 @@
                                               <TableColumn fx:id="supplySupplierCodeColumn" prefWidth="75.0" text="supplierCode" />
                                                 <TableColumn fx:id="addDateColumn" prefWidth="75.0" text="addDate" />
                                                 <TableColumn fx:id="costColumn" prefWidth="75.0" text="cost" />
-                                                <TableColumn fx:id="quantityColumn" prefWidth="75.0" text="quanity" />
+                                                <TableColumn fx:id="quantityColumn" prefWidth="75.0" text="quantity" />
                                                 <TableColumn fx:id="addCodeColumn" prefWidth="75.0" text="addCode" />
                                             </columns>
                                              <columnResizePolicy>
@@ -85,8 +85,8 @@
                               </ButtonBar>
                               <ButtonBar layoutX="6.0" layoutY="57.0" prefHeight="95.0" prefWidth="252.0" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="57.0">
                                 <buttons>
-                                  <Button mnemonicParsing="false" text="View supply" />
-                                    <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="123.0" text="View suppliers" />
+                                  <Button mnemonicParsing="false" onAction="#handleViewSupply" text="View supply" />
+                                    <Button mnemonicParsing="false" onAction="#handleViewSuppliers" prefHeight="29.0" prefWidth="123.0" text="View suppliers" />
                                 </buttons>
                               </ButtonBar>
                            </children>

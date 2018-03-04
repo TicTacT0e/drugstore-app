@@ -88,7 +88,6 @@ public class MedProdOverviewController implements Initializable {
         this.medProdOverviewStage = medProdOverviewStage;
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -117,9 +116,9 @@ public class MedProdOverviewController implements Initializable {
         medProdTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showSuppliersDetails(newValue));
     }
 
-    private void showSuppliersDetails(MedProd medProd){
+    private void showSuppliersDetails(MedProd medProd) {
 
-        if(medProd != null){
+        if (medProd != null) {
 
             int medCode = medProd.getMedCode();
             int supplierCode = supplyCollectionData.getSupplyData().get(--medCode).getSupplierCode();
@@ -139,9 +138,9 @@ public class MedProdOverviewController implements Initializable {
 
     }
 
-    private void showSupplyDetails(MedProd medProd){
+    private void showSupplyDetails(MedProd medProd) {
 
-        if(medProd != null){
+        if (medProd != null) {
 
             int medCode = medProd.getMedCode();
             ObservableList<Supply> tempSupplyRow = FXCollections.observableArrayList();
@@ -156,18 +155,18 @@ public class MedProdOverviewController implements Initializable {
             costColumn.setCellValueFactory(cellData -> new ReadOnlyFloatWrapper(cellData.getValue().getCost()));
             quantityColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getQuantity()));
             addCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getAdmissionCode()));
-    }
+        }
     }
 
     @FXML
-    private void handleDeleteMedProd() {
-        int selectedIndex = medProdTable.getSelectionModel().getSelectedIndex();
+    private void handleEditMedProd() {
+        MedProd selectedMedProd = medProdTable.getSelectionModel().getSelectedItem();
+        if (selectedMedProd != null) {
+            boolean okClicked = showMedProdEditDialog(selectedMedProd, medProdTable.getSelectionModel().getSelectedIndex());
 
-        if (selectedIndex >= 0) {
-            medProdCollectionData.delete(medProdTable.getSelectionModel().getSelectedItem());
-            if(MedProdCollectionData.deleteRow) {
-                medProdTable.getItems().remove(selectedIndex);
+            if (okClicked) {
                 medProdTable.refresh();
+                medProdCollectionData.update(selectedMedProd);
             }
         } else
             selectionError();
@@ -175,25 +174,24 @@ public class MedProdOverviewController implements Initializable {
 
 
     @FXML
-    private void handleEditMedProd() {
-        MedProd selectedMedProd = medProdTable.getSelectionModel().getSelectedItem();
-        if(selectedMedProd != null) {
-            boolean okClicked = showMedProdEditDialog(selectedMedProd, medProdTable.getSelectionModel().getSelectedIndex());
+    private void handleDeleteMedProd() {
+        int selectedIndex = medProdTable.getSelectionModel().getSelectedIndex();
 
-            if (okClicked) {
+        if (selectedIndex >= 0) {
+            medProdCollectionData.delete(medProdTable.getSelectionModel().getSelectedItem());
+            if (MedProdCollectionData.deleteRow) {
+                medProdTable.getItems().remove(selectedIndex);
                 medProdTable.refresh();
-                medProdCollectionData.update(selectedMedProd);
             }
-        }
-        else
-        selectionError();
+        } else
+            selectionError();
     }
 
     @FXML
     private void handleAddMedProd() {
         MedProd tempMedProd = new MedProd();
         boolean okClicked = showMedProdEditDialog(tempMedProd, medProdCollectionData.getMedProdData().size());
-        if (okClicked){
+        if (okClicked) {
             int medCode = medProdCollectionData.getMedProdData().size();
             tempMedProd.setMedCode(++medCode);
             medProdCollectionData.getMedProdData().add(tempMedProd);
@@ -202,7 +200,59 @@ public class MedProdOverviewController implements Initializable {
         }
     }
 
-    private boolean showMedProdEditDialog(MedProd medProd, int selectedIndex){
+    @FXML
+    private void handleViewSupply() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SupplyOverview.fxml"));
+            Parent root = (Parent) loader.load();
+
+            Stage viewSupplyStage = new Stage();
+            viewSupplyStage.setTitle("Supply overview");
+            viewSupplyStage.initModality(Modality.WINDOW_MODAL);
+            viewSupplyStage.initOwner(medProdOverviewStage);
+            Scene scene = new Scene(root, viewSupplyStage.getWidth(), viewSupplyStage.getHeight());
+            viewSupplyStage.setResizable(false);
+            viewSupplyStage.setScene(scene);
+
+            SupplyOverviewController supplyOverviewController = loader.getController();
+            supplyOverviewController.setSupplyOverviewStage(viewSupplyStage);
+
+            viewSupplyStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    private void handleViewSuppliers() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SuppliersOverview.fxml"));
+            Parent root = (Parent) loader.load();
+
+            Stage viewSuppliersStage = new Stage();
+            viewSuppliersStage.setTitle("Suppliers overview");
+            viewSuppliersStage.initModality(Modality.WINDOW_MODAL);
+            viewSuppliersStage.initOwner(medProdOverviewStage);
+            Scene scene = new Scene(root, viewSuppliersStage.getWidth(), viewSuppliersStage.getHeight());
+            viewSuppliersStage.setResizable(false);
+            viewSuppliersStage.setScene(scene);
+
+            SuppliersOverviewController suppliersOverviewController = loader.getController();
+            suppliersOverviewController.setSuppliersOverviewStage(viewSuppliersStage);
+
+            viewSuppliersStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private boolean showMedProdEditDialog(MedProd medProd, int selectedIndex) {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MedProdEditDialog.fxml"));
@@ -217,7 +267,7 @@ public class MedProdOverviewController implements Initializable {
             editDialogStage.setScene(scene);
 
             MedProdEditDialogController medProdEditDialogController = loader.getController();
-            medProdEditDialogController.setEditStage(editDialogStage);
+            medProdEditDialogController.setEditMedProdStage(editDialogStage);
             medProdEditDialogController.setEditLabel(++selectedIndex);
             medProdEditDialogController.setMedProd(medProd);
 
@@ -225,13 +275,13 @@ public class MedProdOverviewController implements Initializable {
 
             return medProdEditDialogController.isOkClicked();
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    private void selectionError(){
+    private void selectionError() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("No Selection");
         alert.setHeaderText("No Product Selected");

@@ -95,6 +95,7 @@ public class ConnectWindowController implements Initializable {
         Parent root = (Parent) loader.load();
         medProdStage.initModality(Modality.WINDOW_MODAL);
         medProdStage.setScene(new Scene(root, medProdStage.getWidth(), medProdStage.getHeight()));
+        medProdStage.setResizable(false);
         medProdStage.setTitle("MedProd");
         medProdStage.show();
 

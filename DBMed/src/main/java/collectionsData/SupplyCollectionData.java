@@ -32,15 +32,31 @@ public class SupplyCollectionData extends CollectionData implements SupplyDataIn
     @Override
     public void update(Supply supply) {
 
+        String updateQuery = "UPDATE db_receipt_of_medicines.supply SET supplierCode = '" + String.valueOf(supply.getSupplierCode()) + "', admissionDate = '" + supply.getAdmissionDate().toString() +
+                "', cost = '" + String.valueOf(supply.getCost()) + "', quanity = '" + String.valueOf(supply.getQuantity()) + "', " +
+                "admissionCode = '" + String.valueOf(supply.getAdmissionCode()) + "' WHERE medCode = '" + String.valueOf(supply.getMedCode()) + "';";
+
+        update(updateQuery);
+
     }
 
     @Override
     public void delete(Supply supply) {
+        deleteRow = false;
+        String deleteQuery = "DELETE FROM db_receipt_of_medicines.supply WHERE medCode = '" + String.valueOf(supply.getMedCode()) + "';";
 
+        delete(deleteQuery);
     }
 
     @Override
     public void insert() {
+        String insertQuery = "INSERT INTO db_receipt_of_medicines.supply (medCode, supplierCode, admissionDate, cost, quanity, admissionCode) " +
+                "VALUES (" + String.valueOf(supplyData.get(supplyData.size() - 1).getMedCode()) + ", '" + String.valueOf(supplyData.get(supplyData.size() - 1).getSupplierCode()) +
+                "', '" + supplyData.get(supplyData.size() - 1).getAdmissionDate().toString() + "', '" + String.valueOf(supplyData.get(supplyData.size() - 1).getCost()) +
+                "', " + String.valueOf(supplyData.get(supplyData.size() - 1).getQuantity()) + ", " +
+                "'" + String.valueOf(supplyData.get(supplyData.size() - 1).getAdmissionCode()) + "');";
+
+        insert(insertQuery);
 
     }
 
