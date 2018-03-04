@@ -162,7 +162,7 @@ public class MedProdOverviewController implements Initializable {
     private void handleEditMedProd() {
         MedProd selectedMedProd = medProdTable.getSelectionModel().getSelectedItem();
         if (selectedMedProd != null) {
-            boolean okClicked = showMedProdEditDialog(selectedMedProd, medProdTable.getSelectionModel().getSelectedIndex());
+            boolean okClicked = showMedProdEditDialog(selectedMedProd);
 
             if (okClicked) {
                 medProdTable.refresh();
@@ -190,7 +190,7 @@ public class MedProdOverviewController implements Initializable {
     @FXML
     private void handleAddMedProd() {
         MedProd tempMedProd = new MedProd();
-        boolean okClicked = showMedProdEditDialog(tempMedProd, medProdCollectionData.getMedProdData().size());
+        boolean okClicked = showMedProdEditDialog(tempMedProd);
         if (okClicked) {
             int medCode = medProdCollectionData.getMedProdData().size();
             tempMedProd.setMedCode(++medCode);
@@ -252,26 +252,25 @@ public class MedProdOverviewController implements Initializable {
 
     }
 
-    private boolean showMedProdEditDialog(MedProd medProd, int selectedIndex) {
+    private boolean showMedProdEditDialog(MedProd medProd) {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MedProdEditDialog.fxml"));
             Parent root = (Parent) loader.load();
 
-            Stage editDialogStage = new Stage();
-            editDialogStage.setTitle("Edit production");
-            editDialogStage.initModality(Modality.WINDOW_MODAL);
-            editDialogStage.initOwner(medProdOverviewStage);
-            Scene scene = new Scene(root, editDialogStage.getWidth(), editDialogStage.getHeight());
-            editDialogStage.setResizable(false);
-            editDialogStage.setScene(scene);
+            Stage medProdEditDialogStage = new Stage();
+            medProdEditDialogStage.setTitle("Edit production");
+            medProdEditDialogStage.initModality(Modality.WINDOW_MODAL);
+            medProdEditDialogStage.initOwner(medProdOverviewStage);
+            Scene scene = new Scene(root, medProdEditDialogStage.getWidth(), medProdEditDialogStage.getHeight());
+            medProdEditDialogStage.setResizable(false);
+            medProdEditDialogStage.setScene(scene);
 
             MedProdEditDialogController medProdEditDialogController = loader.getController();
-            medProdEditDialogController.setEditMedProdStage(editDialogStage);
-            medProdEditDialogController.setEditLabel(++selectedIndex);
+            medProdEditDialogController.setEditMedProdStage(medProdEditDialogStage);
             medProdEditDialogController.setMedProd(medProd);
 
-            editDialogStage.showAndWait();
+            medProdEditDialogStage.showAndWait();
 
             return medProdEditDialogController.isOkClicked();
 

@@ -5,12 +5,17 @@ import javafx.beans.property.ReadOnlyFloatWrapper;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Supply;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -70,6 +75,34 @@ public class SupplyOverviewController implements Initializable{
     @FXML
     private void handleCancel(){
         supplyOverviewStage.close();
+    }
+
+    private boolean showSupplyEditDialog(Supply supply){
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SupplyEditDialog.fxml"));
+            Parent root = (Parent) loader.load();
+
+            Stage supplyEditStage = new Stage();
+            supplyEditStage.setTitle("Supply edit");
+            supplyEditStage.initModality(Modality.WINDOW_MODAL);
+            supplyEditStage.initOwner(supplyOverviewStage);
+            Scene scene = new Scene(root, supplyEditStage.getWidth(), supplyEditStage.getHeight());
+            supplyEditStage.setResizable(false);
+            supplyEditStage.setScene(scene);
+
+            SupplyEditDialogController supplyEditDialogController = loader.getController();
+            supplyEditDialogController.setSupplyEditDialogStage(supplyEditStage);
+            supplyEditDialogController.setSupply(supply);
+
+            supplyEditStage.showAndWait();
+
+            return supplyEditDialogController.isOkClicked();
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
 

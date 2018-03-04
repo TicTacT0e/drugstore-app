@@ -13,9 +13,8 @@ import java.util.ResourceBundle;
 
 public class MedProdEditDialogController implements Initializable {
 
-
     @FXML
-    private Label medCodeEditLabel;
+    private TextField medCodeEditField;
     @FXML
     private TextField medNameEditField;
     @FXML
@@ -73,15 +72,12 @@ public class MedProdEditDialogController implements Initializable {
     public void setMedProd(MedProd medProd) {
         this.medProd = medProd;
 
+        medCodeEditField.setText(String.valueOf(medProd.getMedCode()));
         medNameEditField.setText(medProd.getNameMed());
         indicationsEditField.setText(medProd.getIndications());
         unitEditField.setText(medProd.getUnit());
         quantityInPacEditField.setText(String.valueOf(medProd.getQuantityInPac()));
         manufactNameEditField.setText(medProd.getManufactName());
-    }
-
-    public void setEditLabel(int numEditProd){
-        medCodeEditLabel.setText(String.valueOf(numEditProd));
     }
 
     private boolean isInputValid(){

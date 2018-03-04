@@ -29,7 +29,7 @@
             <Label text="Medicin Name:" GridPane.rowIndex="1" />
             <Label text="Indication:" GridPane.rowIndex="2" />
             <Label text="Unit:" GridPane.rowIndex="3" />
-            <Label text="Quanity in package:" GridPane.rowIndex="4" />
+            <Label text="Quantity in package:" GridPane.rowIndex="4" />
             <Label text="Name of manufacturer:" GridPane.rowIndex="5" />
             <TextField fx:id="medNameEditField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="indicationsEditField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -37,7 +37,7 @@
             <TextField fx:id="quantityInPacEditField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="manufactNameEditField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Medicin code:" />
-            <Label fx:id="medCodeEditLabel" text="Label" GridPane.columnIndex="1" />
+            <TextField fx:id="medCodeEditField" editable="false" GridPane.columnIndex="1" />
          </children>
          <effect>
             <Blend />
