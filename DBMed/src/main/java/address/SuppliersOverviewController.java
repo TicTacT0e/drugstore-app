@@ -5,16 +5,21 @@ import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyLongWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Suppliers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SuppliersOverviewController implements Initializable{
+public class SuppliersOverviewController extends OverviewController implements Initializable {
 
     private Stage suppliersOverviewStage;
 
@@ -52,23 +57,77 @@ public class SuppliersOverviewController implements Initializable{
     }
 
     @FXML
-    private void handleEditSupplier(){
+    private void handleEditSupplier() {
+        Suppliers selectedSupplier = suppliersTable.getSelectionModel().getSelectedItem();
+        if (selectedSupplier != null) {
+            boolean okClicked = showSupplierEditDialog(selectedSupplier);
 
+            if (okClicked) {
+                suppliersTable.refresh();
+                suppliersCollectionData.update(selectedSupplier);
+            }
+        } else
+            selectionError();
     }
 
     @FXML
-    private void handleDeleteSupplier(){
+    private void handleDeleteSupplier() {
+        int selectedIndex = suppliersTable.getSelectionModel().getSelectedIndex();
 
+        if (selectedIndex >= 0) {
+            suppliersCollectionData.delete(suppliersTable.getSelectionModel().getSelectedItem());
+            if (SuppliersCollectionData.deleteRow) {
+                suppliersTable.getItems().remove(selectedIndex);
+                suppliersTable.refresh();
+            }
+        } else
+            selectionError();
     }
 
     @FXML
-    private void handleAddSupplier(){
-
+    private void handleAddSupplier() {
+        Suppliers tempSupplier = new Suppliers();
+        boolean okClicked = showSupplierEditDialog(tempSupplier);
+        if (okClicked) {
+            int supplierCode = suppliersCollectionData.getSuppliersData().size();
+            tempSupplier.setSupplierCode(++supplierCode);
+            suppliersCollectionData.getSuppliersData().add(tempSupplier);
+            suppliersTable.refresh();
+            suppliersCollectionData.insert();
+        }
     }
 
     @FXML
-    private void handleCancel(){
+    private void handleCancel() {
         suppliersOverviewStage.close();
+    }
+
+    private boolean showSupplierEditDialog(Suppliers suppliers) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SupplierEditDialog.fxml"));
+            Parent root = (Parent) loader.load();
+
+            Stage supplierEditDialogStage = new Stage();
+            supplierEditDialogStage.setTitle("Edit supplier");
+            supplierEditDialogStage.initModality(Modality.WINDOW_MODAL);
+            supplierEditDialogStage.initOwner(suppliersOverviewStage);
+            Scene scene = new Scene(root, supplierEditDialogStage.getWidth(), supplierEditDialogStage.getHeight());
+            supplierEditDialogStage.setResizable(false);
+            supplierEditDialogStage.setScene(scene);
+
+            SupplierEditDialogController supplierEditDialogController = loader.getController();
+            supplierEditDialogController.setSupplierEditStage(supplierEditDialogStage);
+            supplierEditDialogController.setSupplier(suppliers);
+
+            supplierEditDialogStage.showAndWait();
+
+            return supplierEditDialogController.isOkClicked();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public void setSuppliersOverviewStage(Stage suppliersOverviewStage) {

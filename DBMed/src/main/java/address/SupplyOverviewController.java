@@ -20,7 +20,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class SupplyOverviewController implements Initializable{
+public class SupplyOverviewController extends OverviewController implements Initializable{
 
     private Stage supplyOverviewStage;
 
@@ -59,17 +59,43 @@ public class SupplyOverviewController implements Initializable{
 
     @FXML
     private void handleEditSupply(){
+        Supply selectedSupply = supplyTable.getSelectionModel().getSelectedItem();
+        if (selectedSupply != null) {
+            boolean okClicked = showSupplyEditDialog(selectedSupply);
 
+            if (okClicked) {
+                supplyTable.refresh();
+                supplyCollectionData.update(selectedSupply);
+            }
+        } else
+            selectionError();
     }
 
     @FXML
     private void handleDeleteSupply(){
+        int selectedIndex = supplyTable.getSelectionModel().getSelectedIndex();
 
+        if (selectedIndex >= 0) {
+            supplyCollectionData.delete(supplyTable.getSelectionModel().getSelectedItem());
+            if (SupplyCollectionData.deleteRow) {
+                supplyTable.getItems().remove(selectedIndex);
+                supplyTable.refresh();
+            }
+        } else
+            selectionError();
     }
 
     @FXML
     private void handleAddSupply(){
-
+        Supply tempSupply = new Supply();
+        boolean okClicked = showSupplyEditDialog(tempSupply);
+        if (okClicked) {
+            int medCode = supplyCollectionData.getSupplyData().size();
+            tempSupply.setMedCode(++medCode);
+            supplyCollectionData.getSupplyData().add(tempSupply);
+            supplyTable.refresh();
+            supplyCollectionData.insert();
+        }
     }
 
     @FXML
@@ -83,19 +109,19 @@ public class SupplyOverviewController implements Initializable{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SupplyEditDialog.fxml"));
             Parent root = (Parent) loader.load();
 
-            Stage supplyEditStage = new Stage();
-            supplyEditStage.setTitle("Supply edit");
-            supplyEditStage.initModality(Modality.WINDOW_MODAL);
-            supplyEditStage.initOwner(supplyOverviewStage);
-            Scene scene = new Scene(root, supplyEditStage.getWidth(), supplyEditStage.getHeight());
-            supplyEditStage.setResizable(false);
-            supplyEditStage.setScene(scene);
+            Stage supplyEditDialogStage = new Stage();
+            supplyEditDialogStage.setTitle("Supply edit");
+            supplyEditDialogStage.initModality(Modality.WINDOW_MODAL);
+            supplyEditDialogStage.initOwner(supplyOverviewStage);
+            Scene scene = new Scene(root, supplyEditDialogStage.getWidth(), supplyEditDialogStage.getHeight());
+            supplyEditDialogStage.setResizable(false);
+            supplyEditDialogStage.setScene(scene);
 
             SupplyEditDialogController supplyEditDialogController = loader.getController();
-            supplyEditDialogController.setSupplyEditDialogStage(supplyEditStage);
+            supplyEditDialogController.setSupplyEditDialogStage(supplyEditDialogStage);
             supplyEditDialogController.setSupply(supply);
 
-            supplyEditStage.showAndWait();
+            supplyEditDialogStage.showAndWait();
 
             return supplyEditDialogController.isOkClicked();
 

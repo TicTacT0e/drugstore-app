@@ -11,7 +11,7 @@ import model.MedProd;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MedProdEditDialogController implements Initializable {
+public class MedProdEditDialogController extends EditDialog implements Initializable {
 
     @FXML
     private TextField medCodeEditField;
@@ -102,18 +102,6 @@ public class MedProdEditDialogController implements Initializable {
         if(manufactNameEditField.getText() == null || manufactNameEditField.getText().length() == 0)
             errorMessage += "No valid manufacturer name.\n";
 
-        if (errorMessage.length() == 0) {
-            return true;
-        }else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(editMedProdStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-
-            alert.showAndWait();
-
-            return false;
-        }
+       return errorAlert(errorMessage, editMedProdStage);
     }
 }

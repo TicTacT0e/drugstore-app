@@ -32,9 +32,9 @@
                <children>
                   <ButtonBar layoutX="219.0" layoutY="61.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="219.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="61.0">
                      <buttons>
-                        <Button mnemonicParsing="false" text="New..." />
-                        <Button mnemonicParsing="false" text="Edit..." />
-                        <Button mnemonicParsing="false" text="Delete" />
+                        <Button mnemonicParsing="false" onAction="#handleAddSupplier" text="New..." />
+                        <Button mnemonicParsing="false" onAction="#handleEditSupplier" text="Edit..." />
+                        <Button mnemonicParsing="false" onAction="#handleDeleteSupplier" text="Delete" />
                      </buttons>
                   </ButtonBar>
                   <Button layoutX="14.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="75.0" text="Cancel" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="409.0" AnchorPane.topAnchor="69.0" />

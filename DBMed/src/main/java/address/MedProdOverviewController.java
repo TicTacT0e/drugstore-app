@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
@@ -25,7 +24,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class MedProdOverviewController implements Initializable {
+public class MedProdOverviewController extends OverviewController implements Initializable {
 
     @FXML
     private TableView<MedProd> medProdTable;
@@ -280,13 +279,5 @@ public class MedProdOverviewController implements Initializable {
         }
     }
 
-    private void selectionError() {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("No Selection");
-        alert.setHeaderText("No Product Selected");
-        alert.setContentText("Please select a product in the table.");
-
-        alert.showAndWait();
-    }
 }
 

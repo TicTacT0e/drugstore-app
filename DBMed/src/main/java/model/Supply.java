@@ -16,7 +16,7 @@ public class Supply {
     public Supply(){
         this.medCode = new SimpleIntegerProperty(0);
         this.supplierCode = new SimpleIntegerProperty(0);
-        this.admissionDate = new SimpleObjectProperty<LocalDate>(LocalDate.of(0000, 00, 00));
+        this.admissionDate = new SimpleObjectProperty<LocalDate>(LocalDate.of(0001, 01, 01));
         this.cost = new SimpleFloatProperty(0);
         this.quantity = new SimpleIntegerProperty(0);
         this.admissionCode = new SimpleIntegerProperty(0);
