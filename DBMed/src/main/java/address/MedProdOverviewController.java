@@ -116,9 +116,7 @@ public class MedProdOverviewController extends OverviewController implements Ini
     }
 
     private void showSuppliersDetails(MedProd medProd) {
-
-        if (medProd != null) {
-
+        try {
             int medCode = medProd.getMedCode();
             int supplierCode = supplyCollectionData.getSupplyData().get(--medCode).getSupplierCode();
             ObservableList<Suppliers> tempSupplierRow = FXCollections.observableArrayList();
@@ -133,13 +131,14 @@ public class MedProdOverviewController extends OverviewController implements Ini
             legalAddressColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLegalAddress()));
             phoneColumn.setCellValueFactory(cellData -> new ReadOnlyLongWrapper(cellData.getValue().getPhone()));
             headNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getFullNameOfHead()));
+        } catch (IndexOutOfBoundsException e) {
+            suppliersTable.getItems().remove(0);
         }
 
     }
 
     private void showSupplyDetails(MedProd medProd) {
-
-        if (medProd != null) {
+        try {
 
             int medCode = medProd.getMedCode();
             ObservableList<Supply> tempSupplyRow = FXCollections.observableArrayList();
@@ -154,6 +153,8 @@ public class MedProdOverviewController extends OverviewController implements Ini
             costColumn.setCellValueFactory(cellData -> new ReadOnlyFloatWrapper(cellData.getValue().getCost()));
             quantityColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getQuantity()));
             addCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getAdmissionCode()));
+        } catch (IndexOutOfBoundsException e) {
+            supplyTable.getItems().remove(0);
         }
     }
 

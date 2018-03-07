@@ -28,7 +28,7 @@
          <children>
             <Label text="Abbreviation:" GridPane.rowIndex="1" />
             <Label text="Full title:" GridPane.rowIndex="2" />
-            <Label text="Legal address:" GridPane.rowIndex="3" />
+            <Label text="Legal utils.address:" GridPane.rowIndex="3" />
             <Label text="Phone:" GridPane.rowIndex="4" />
             <Label text="Name of head:" GridPane.rowIndex="5" />
             <TextField fx:id="abbreviationEditField" GridPane.columnIndex="1" GridPane.rowIndex="1" />

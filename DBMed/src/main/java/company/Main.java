@@ -12,9 +12,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ConnectWindow.fxml"));
-        root = (Parent) loader.load();
+        Parent root = (Parent) loader.load();
         primaryStage.setTitle("DrugStore");
         Scene scene;
         primaryStage.setScene(scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight()));
