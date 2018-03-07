@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 public class SupplyCollectionData extends CollectionData implements SupplyDataInterface {
 
-    private ObservableList<Supply> supplyData = FXCollections.observableArrayList();
+    private static ObservableList<Supply> supplyData = FXCollections.observableArrayList();
 
     @Override
     public void readData() {
@@ -60,7 +60,6 @@ public class SupplyCollectionData extends CollectionData implements SupplyDataIn
 
     }
 
-    @Override
     public ObservableList<Supply> getSupplyData() {
         return supplyData;
     }

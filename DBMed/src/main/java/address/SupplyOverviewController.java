@@ -41,11 +41,9 @@ public class SupplyOverviewController extends OverviewController implements Init
     @FXML
     private TableColumn<Supply, Number> addCodeColumn;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        supplyCollectionData.readData();
         supplyTable.setItems(supplyCollectionData.getSupplyData());
 
         medCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getMedCode()));
@@ -134,5 +132,9 @@ public class SupplyOverviewController extends OverviewController implements Init
 
     public void setSupplyOverviewStage(Stage supplyOverviewStage) {
         this.supplyOverviewStage = supplyOverviewStage;
+    }
+
+    public void setSupplyCollectionData(SupplyCollectionData supplyCollectionData) {
+        this.supplyCollectionData = supplyCollectionData;
     }
 }

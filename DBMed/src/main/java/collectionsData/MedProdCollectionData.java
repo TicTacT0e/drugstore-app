@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 public class MedProdCollectionData extends CollectionData implements MedProdDataInterface {
 
-    private ObservableList<MedProd> medProdsData = FXCollections.observableArrayList();
+    private static ObservableList<MedProd> medProdsData = FXCollections.observableArrayList();
 
     @Override
     public void readData() {
@@ -58,7 +58,6 @@ public class MedProdCollectionData extends CollectionData implements MedProdData
         insert(insertQuery);
     }
 
-    @Override
     public ObservableList<MedProd> getMedProdData() {
         return medProdsData;
     }

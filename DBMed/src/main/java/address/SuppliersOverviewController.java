@@ -44,7 +44,6 @@ public class SuppliersOverviewController extends OverviewController implements I
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        suppliersCollectionData.readData();
         suppliersTable.setItems(suppliersCollectionData.getSuppliersData());
 
         supplierCodeColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getSupplierCode()));

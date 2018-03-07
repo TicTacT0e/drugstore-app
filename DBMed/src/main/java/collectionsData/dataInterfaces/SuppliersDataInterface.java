@@ -1,11 +1,9 @@
 package collectionsData.dataInterfaces;
 
-import javafx.collections.ObservableList;
 import model.Suppliers;
 
-public interface SuppliersDataInterface  extends DataInterface{
+public interface SuppliersDataInterface extends DataInterface {
 
-    ObservableList<Suppliers> getSuppliersData();
 
     void update(Suppliers suppliers);
 
