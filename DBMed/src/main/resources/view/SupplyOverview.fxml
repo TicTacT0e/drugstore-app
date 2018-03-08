@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="address.SupplyOverviewController">
+<AnchorPane prefHeight="350.0" prefWidth="600.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="address.SupplyOverviewController">
    <children>
       <SplitPane dividerPositions="0.6609195402298851" layoutX="-11.0" layoutY="75.0" orientation="VERTICAL" prefHeight="350.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -27,7 +27,7 @@
                      </columnResizePolicy>
                   </TableView>
                </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="background">
                <children>
                   <ButtonBar layoutX="219.0" layoutY="61.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="219.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="61.0">
                     <buttons>

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="address.MedProdEditDialogController">
+<AnchorPane prefHeight="250.0" prefWidth="400.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="address.MedProdEditDialogController">
    <children>
       <GridPane layoutX="66.0" layoutY="24.0" prefHeight="157.0" prefWidth="281.0" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="24.0">
         <columnConstraints>
@@ -37,7 +37,7 @@
             <TextField fx:id="quantityInPacEditField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="manufactNameEditField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Medicin code:" />
-            <TextField fx:id="medCodeEditField" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="medCodeEditField" editable="false" prefHeight="23.0" prefWidth="140.0" GridPane.columnIndex="1" />
          </children>
          <effect>
             <Blend />
@@ -46,7 +46,7 @@
       <ButtonBar layoutX="206.0" layoutY="195.0" prefHeight="41.0" prefWidth="146.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="195.0">
         <buttons>
             <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
-          <Button minWidth="55.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="25.0" text="Ok" />
+          <Button defaultButton="true" minWidth="55.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="25.0" text="Ok" />
         </buttons>
       </ButtonBar>
    </children>
