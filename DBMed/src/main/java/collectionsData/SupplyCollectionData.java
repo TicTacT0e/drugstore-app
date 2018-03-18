@@ -17,7 +17,7 @@ public class SupplyCollectionData extends CollectionData implements SupplyDataIn
     public void readData() {
 
         try (Statement statement = connection.createStatement()) {
-            ResultSet resultSetSupply = statement.executeQuery("SELECT * FROM db_receipt_of_medicines.supply");
+            ResultSet resultSetSupply = statement.executeQuery("SELECT * FROM DB_Receipt_of_Medicines.Supply");
 
             while (resultSetSupply.next()) {
                 supplyData.add(new Supply(resultSetSupply.getInt(1), resultSetSupply.getInt(2), resultSetSupply.getDate(3).toLocalDate(),
@@ -32,8 +32,8 @@ public class SupplyCollectionData extends CollectionData implements SupplyDataIn
     @Override
     public void update(Supply supply) {
 
-        String updateQuery = "UPDATE db_receipt_of_medicines.supply SET supplierCode = '" + String.valueOf(supply.getSupplierCode()) + "', admissionDate = '" + supply.getAdmissionDate().toString() +
-                "', cost = '" + String.valueOf(supply.getCost()) + "', quanity = '" + String.valueOf(supply.getQuantity()) + "', " +
+        String updateQuery = "UPDATE DB_Receipt_of_Medicines.Supply SET supplierCode = '" + String.valueOf(supply.getSupplierCode()) + "', admissionDate = '" + supply.getAdmissionDate().toString() +
+                "', cost = '" + String.valueOf(supply.getCost()) + "', quantity = '" + String.valueOf(supply.getQuantity()) + "', " +
                 "admissionCode = '" + String.valueOf(supply.getAdmissionCode()) + "' WHERE medCode = '" + String.valueOf(supply.getMedCode()) + "';";
 
         update(updateQuery);
@@ -43,14 +43,14 @@ public class SupplyCollectionData extends CollectionData implements SupplyDataIn
     @Override
     public void delete(Supply supply) {
         deleteRow = false;
-        String deleteQuery = "DELETE FROM db_receipt_of_medicines.supply WHERE medCode = '" + String.valueOf(supply.getMedCode()) + "';";
+        String deleteQuery = "DELETE FROM DB_Receipt_of_Medicines.Supply WHERE medCode = '" + String.valueOf(supply.getMedCode()) + "';";
 
         delete(deleteQuery);
     }
 
     @Override
     public void insert() {
-        String insertQuery = "INSERT INTO db_receipt_of_medicines.supply (medCode, supplierCode, admissionDate, cost, quanity, admissionCode) " +
+        String insertQuery = "INSERT INTO DB_Receipt_of_Medicines.Supply (medCode, supplierCode, admissionDate, cost, quantity, admissionCode) " +
                 "VALUES (" + String.valueOf(supplyData.get(supplyData.size() - 1).getMedCode()) + ", '" + String.valueOf(supplyData.get(supplyData.size() - 1).getSupplierCode()) +
                 "', '" + supplyData.get(supplyData.size() - 1).getAdmissionDate().toString() + "', '" + String.valueOf(supplyData.get(supplyData.size() - 1).getCost()) +
                 "', " + String.valueOf(supplyData.get(supplyData.size() - 1).getQuantity()) + ", " +
