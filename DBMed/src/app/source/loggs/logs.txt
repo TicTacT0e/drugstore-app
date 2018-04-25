@@ -1,2 +1,2 @@
-root registered.
-looc registered.
+root registered
+root has access to the database

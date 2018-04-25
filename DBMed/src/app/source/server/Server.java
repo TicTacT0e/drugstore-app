@@ -1,6 +1,7 @@
 package server;
 
 import config.Config;
+import dbConnector.DBConnector;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -8,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server implements Runnable {
+
+    private static final String databaseLogin = "root";
+    private static final String databasePassword = "admin";
 
     private static List<ClientConnection> connections = new ArrayList<>();
 
@@ -26,6 +30,10 @@ public class Server implements Runnable {
             e.printStackTrace();
         }
 
+        DBConnector.getInstance().setLogin(databaseLogin);
+        DBConnector.getInstance().setPassword(databasePassword);
+        DBConnector.getInstance().startConnection();
+
         serverThread.start();
     }
 
@@ -42,6 +50,12 @@ public class Server implements Runnable {
             e.printStackTrace();
         }
 
+    }
+
+    public static boolean checkRoot(String login, String password){
+        if (databaseLogin.equals(login) && databasePassword.equals(password))
+            return true;
+        else return false;
     }
 
 

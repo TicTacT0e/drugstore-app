@@ -1,9 +1,11 @@
 package client;
 
 import config.Config;
+import controllers.DBConnectWindowController;
 import handle.EventNamespace;
 import handle.HandleData;
 import loggs.Logs;
+import server.Server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,6 +15,10 @@ import java.net.Socket;
 
 public class ClientThread implements Runnable{
 
+    private static ClientThread ourInstance = new ClientThread();
+
+    public static ClientThread getInstance(){ return ourInstance; }
+
     private Thread clientThread;
     private Socket socket;
     private InetAddress inetAddress;
@@ -20,9 +26,11 @@ public class ClientThread implements Runnable{
     private ObjectInputStream obInput;
     private ObjectOutputStream obOutput;
 
-    private HandleData handleData = new HandleData();
+    private static HandleData handleData = new HandleData();
 
-    public ClientThread(){
+    private ClientThread() {}
+
+    public void startClientThread(){
         clientThread = new Thread(this, "Client thread");
         clientThread.start();
     }
@@ -50,6 +58,21 @@ public class ClientThread implements Runnable{
         handleData.setEvent(event);
         handleData.setUsername(username);
         send(handleData);
+    }
+
+    public boolean checkDBRoots(EventNamespace event, String login, String password){
+        handleData.setEvent(event);
+        handleData.setDatabaseLogin(login);
+        handleData.setDatabasePassword(password);
+        send(handleData);
+
+        try {
+            handleData = (HandleData) obInput.readObject();
+            return handleData.getDatabaseRoot();
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private void send(HandleData handleData){

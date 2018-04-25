@@ -39,8 +39,6 @@ public class TCPConnectWindowController implements Initializable {
 
     private boolean connectFlag = false;
 
-    private static ClientThread clientThread;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -91,14 +89,13 @@ public class TCPConnectWindowController implements Initializable {
     }
 
     private void connect(){
-        clientThread = new ClientThread();
-        connection = clientThread.connect(inetAddressField.getText());
+        ClientThread.getInstance().startClientThread();
+        connection = ClientThread.getInstance().connect(inetAddressField.getText());
 
         if (connection) {
             alert.setContentText("Successful connection to the server!");
             alert.showAndWait();
-
-            clientThread.clientRegistration(EventNamespace.REGISTRATION, userField.getText());
+            ClientThread.getInstance().clientRegistration(EventNamespace.REGISTRATION, userField.getText());
             tcpConnectWindowStage.close();
             try {
                 startDBConnectWindow();
@@ -123,7 +120,6 @@ public class TCPConnectWindowController implements Initializable {
 
         DBConnectWindowController dbConnectWindowController = loader.getController();
         dbConnectWindowController.setDbConnectWindowStage(dbConnectStage);
-        DBConnectWindowController.setClientThread(clientThread);
     }
 
     public void setTCPConnectWindowStage(Stage tcpConnectWindowStage) {

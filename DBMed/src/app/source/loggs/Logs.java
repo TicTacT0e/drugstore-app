@@ -5,14 +5,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Logs {
+    private static Logs ourInstance = new Logs();
 
+    public static Logs getInstance() {
+        return ourInstance;
+    }
 
     private static final String path = System.getProperty("user.dir");
-
     private static final StringBuilder logSB = new StringBuilder();
 
-
-    public static void logIn(String log){
+    public synchronized void logIn(String log){
 
         logSB.append(log + "\n");
 
@@ -22,4 +24,6 @@ public class Logs {
             e.printStackTrace();
         }
     }
+
+    private Logs() { }
 }

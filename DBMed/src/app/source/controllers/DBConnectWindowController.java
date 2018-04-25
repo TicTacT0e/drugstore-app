@@ -3,6 +3,7 @@ package controllers;
 import client.ClientThread;
 import collectionsData.MedProdCollectionData;
 import dbConnector.DBConnectorOLD;
+import handle.EventNamespace;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,7 +24,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
 public class DBConnectWindowController implements Initializable {
 
     @FXML
@@ -33,24 +33,18 @@ public class DBConnectWindowController implements Initializable {
     @FXML
     private Button connectionButton;
 
-    private boolean connection;
+    private boolean connectionFlag = false;
 
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     private Stage dbConnectWindowStage;
-
-    private static ClientThread clientThread;
-
-    public static void setClientThread(ClientThread clientThread) {
-        DBConnectWindowController.clientThread = clientThread;
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         alert.setTitle("Info");
         alert.setHeaderText(null);
-        connection = false;
+        connectionFlag = false;
 
         connectionButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -76,11 +70,24 @@ public class DBConnectWindowController implements Initializable {
         }
     }
 
-    private void connect() {
-        DBConnectorOLD dbConnectorOLD = new DBConnectorOLD(userField.getText(), passField.getText());
-        connection = dbConnectorOLD.startConnection();
+    private void connect(){
 
-        if (connection) {
+        connectionFlag = ClientThread.getInstance().checkDBRoots(EventNamespace.ACCOUNT_CHECK, userField.getText(), passField.getText());
+
+        if (connectionFlag){
+            alert.setContentText("Database connected!");
+            alert.showAndWait();
+        }else{
+            alert.setContentText("Incorrect username or password. Try again.");
+            alert.showAndWait();
+        }
+    }
+
+    private void connectOLD() {
+        DBConnectorOLD dbConnectorOLD = new DBConnectorOLD(userField.getText(), passField.getText());
+        connectionFlag = dbConnectorOLD.startConnection();
+
+        if (connectionFlag) {
             alert.setContentText("Database connected!");
             alert.showAndWait();
             try {

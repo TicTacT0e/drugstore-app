@@ -21,8 +21,10 @@ public class ClientConnection implements Runnable {
     private Socket socket;
 
     EventNamespace event = null;
-    private HandleData handleData;
+    private static HandleData handleData = new HandleData();
     private String clientUsername;
+
+    private boolean dbRoot = false;
 
     public ClientConnection(Socket socket) throws IOException{
         clientConnectionThread = new Thread(this, "Client Connection Thread");
@@ -46,14 +48,33 @@ public class ClientConnection implements Runnable {
                 switch (event) {
                     case REGISTRATION:
                         clientUsername = handleData.getUsername();
-                        Logs.logIn(handleData.getUsername() + " registered.");
+                        Logs.getInstance().logIn(handleData.getUsername() + " registered");
                         break;
+
+                    case ACCOUNT_CHECK:
+                        dbRoot = Server.checkRoot(handleData.getDatabaseLogin(), handleData.getDatabasePassword());
+                        if(dbRoot)
+                            Logs.getInstance().logIn(handleData.getUsername() + " has access to the database");
+                        else Logs.getInstance().logIn(handleData.getUsername() + "doesn't have access to the database");
+                        handleData.setDatabaseRoot(dbRoot);
+                        send(handleData);
+                        break;
+
 
                     default:
                         break;
                 }
             }
         } catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void send(HandleData handleData){
+        try {
+            obOutput.reset();
+            obOutput.writeObject(handleData);
+        }catch (IOException e){
             e.printStackTrace();
         }
     }
