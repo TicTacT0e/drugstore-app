@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class Main extends Application {
+public class MainOLD extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -20,7 +20,7 @@ public class Main extends Application {
         primaryStage.setResizable(false);
 
         DBConnectWindowController dbConnectWindowController = loader.getController();
-        dbConnectWindowController.setConnectWindowStage(primaryStage);
+        dbConnectWindowController.setDbConnectWindowStage(primaryStage);
 
         primaryStage.show();
     }

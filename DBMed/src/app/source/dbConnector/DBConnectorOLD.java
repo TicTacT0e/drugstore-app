@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnector {
+public class DBConnectorOLD {
 
     private String username;
     private String password;
@@ -12,9 +12,9 @@ public class DBConnector {
 
     private Connection connection = null;
 
-    public DBConnector (){}
+    public DBConnectorOLD(){}
 
-    public DBConnector (String username, String password){
+    public DBConnectorOLD(String username, String password){
         this.username = username;
         this.password = password;
     }

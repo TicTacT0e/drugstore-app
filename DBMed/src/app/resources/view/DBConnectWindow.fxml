@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DBConnectWindowController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DBConnectWindowController">
    <children>
       <GridPane layoutX="51.0" layoutY="14.0" prefHeight="104.0" prefWidth="299.0" styleClass="background">
         <columnConstraints>
@@ -25,7 +25,7 @@
             <TextField fx:id="userField" GridPane.columnIndex="1" />
             <PasswordField fx:id="passField" onKeyPressed="#passFieldKeyPressed" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label styleClass="label-bright" text="Password:" GridPane.rowIndex="1" />
-            <Label styleClass="label-bright" text="User:" />
+            <Label styleClass="label-bright" text="Login:" />
          </children>
          <effect>
             <InnerShadow blurType="ONE_PASS_BOX" />

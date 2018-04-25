@@ -1,7 +1,8 @@
 package controllers;
 
+import client.ClientThread;
 import collectionsData.MedProdCollectionData;
-import dbConnector.DBConnector;
+import dbConnector.DBConnectorOLD;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,7 +37,13 @@ public class DBConnectWindowController implements Initializable {
 
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-    private Stage connectWindowStage;
+    private Stage dbConnectWindowStage;
+
+    private static ClientThread clientThread;
+
+    public static void setClientThread(ClientThread clientThread) {
+        DBConnectWindowController.clientThread = clientThread;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -70,15 +77,15 @@ public class DBConnectWindowController implements Initializable {
     }
 
     private void connect() {
-        DBConnector dbConnector = new DBConnector(userField.getText(), passField.getText());
-        connection = dbConnector.startConnection();
+        DBConnectorOLD dbConnectorOLD = new DBConnectorOLD(userField.getText(), passField.getText());
+        connection = dbConnectorOLD.startConnection();
 
         if (connection) {
             alert.setContentText("Database connected!");
             alert.showAndWait();
             try {
-                connectWindowStage.close();
-                MedProdCollectionData.setConnection(dbConnector.getConnection());
+                dbConnectWindowStage.close();
+                MedProdCollectionData.setConnection(dbConnectorOLD.getConnection());
                 startMedProd();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -100,10 +107,10 @@ public class DBConnectWindowController implements Initializable {
         medProdStage.show();
 
         MedProdOverviewController medProdOverviewController = loader.getController();
-        medProdOverviewController.setMedProdOverviewStage(connectWindowStage);
+        medProdOverviewController.setMedProdOverviewStage(dbConnectWindowStage);
     }
 
-    public void setConnectWindowStage(Stage connectWindowStage) {
-        this.connectWindowStage = connectWindowStage;
+    public void setDbConnectWindowStage(Stage dbConnectWindowStage) {
+        this.dbConnectWindowStage = dbConnectWindowStage;
     }
 }

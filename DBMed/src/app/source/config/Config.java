@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class Config {
 
-    private static final String PROPERTIES_FILE = System.getProperty("user.dir") + "/java/properties/prop";
+    private static final String PROPERTIES_FILE = System.getProperty("user.dir") + "/src/app/source/properties/prop";
 
     public static int PORT;
 
