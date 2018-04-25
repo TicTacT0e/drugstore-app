@@ -1,5 +1,9 @@
 package address;
 
+import collectionsData.MedProdCollectionData;
+import collectionsData.SuppliersCollectionData;
+import model.MedProd;
+import model.Suppliers;
 import utils.DateUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,6 +35,9 @@ public class SupplyEditDialogController extends EditDialog implements Initializa
 
     private boolean okClicked = false;
 
+    private MedProdCollectionData medProdCollectionData = new MedProdCollectionData();
+    private SuppliersCollectionData suppliersCollectionData = new SuppliersCollectionData();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -59,6 +66,10 @@ public class SupplyEditDialogController extends EditDialog implements Initializa
     }
 
     private boolean isInputValid(){
+
+        boolean flagMedCodeExists = false;
+        boolean flagSupplierCodeExists = false;
+
         String errorMessage = "";
 
         if(supplyMedCodeEditField.getText() == null || supplyMedCodeEditField.getText().length() == 0)
@@ -70,6 +81,21 @@ public class SupplyEditDialogController extends EditDialog implements Initializa
                 errorMessage += "No valid medicine code. It must be an integer value.\n";
             }
         }
+
+        for (MedProd medProd : medProdCollectionData.getMedProdData()){
+            if(Integer.parseInt(supplyMedCodeEditField.getText()) == medProd.getMedCode())
+                flagMedCodeExists = true;
+        }
+        for (Suppliers suppliers : suppliersCollectionData.getSuppliersData()){
+            if(Integer.parseInt(supplySupplierCodeEditField.getText()) == suppliers.getSupplierCode())
+                flagSupplierCodeExists = true;
+        }
+
+        if (!flagMedCodeExists)
+            errorMessage += "This medicin code doesn't exist.\n";
+        if (!flagSupplierCodeExists)
+            errorMessage += "This supplier code doesn't exist.\n";
+
         if(supplySupplierCodeEditField.getText() == null || supplySupplierCodeEditField.getText().length() == 0)
             errorMessage += "No valid supplier code.\n";
         else {
@@ -79,6 +105,7 @@ public class SupplyEditDialogController extends EditDialog implements Initializa
                 errorMessage += "No valid supplier code. It must be an integer value.\n";
             }
         }
+
         if(addDateEditField.getText() == null || addDateEditField.getText().length() == 0)
             errorMessage += "No valid admission date.\n";
         else {
@@ -86,6 +113,7 @@ public class SupplyEditDialogController extends EditDialog implements Initializa
                 errorMessage += "No valid admission date. Use the format yyyy-MM-dd.\n";
             }
         }
+
         if(costEditField.getText() == null || costEditField.getText().length() == 0)
             errorMessage += "No valid cost.\n";
         else {
@@ -95,6 +123,7 @@ public class SupplyEditDialogController extends EditDialog implements Initializa
                 errorMessage += "No valid cost. It must be an float value.\n";
             }
         }
+
         if (quantityEditField.getText() == null || quantityEditField.getText().length() == 0){
             errorMessage += "No valid quantity.\n";
         }else {
@@ -104,6 +133,7 @@ public class SupplyEditDialogController extends EditDialog implements Initializa
                 errorMessage += "No valid quantity. It must be an integer value.\n";
             }
         }
+
         if (addCodeEditField.getText() == null || addCodeEditField.getText().length() == 0)
             errorMessage += "No valid admission code.\n";
         else {

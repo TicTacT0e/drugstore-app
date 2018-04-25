@@ -1,7 +1,7 @@
 package address;
 
 import collectionsData.MedProdCollectionData;
-import company.DBConnector;
+import connector.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

@@ -88,8 +88,6 @@ public class SupplyOverviewController extends OverviewController implements Init
         Supply tempSupply = new Supply();
         boolean okClicked = showSupplyEditDialog(tempSupply);
         if (okClicked) {
-            int medCode = supplyCollectionData.getSupplyData().size();
-            tempSupply.setMedCode(++medCode);
             supplyCollectionData.getSupplyData().add(tempSupply);
             supplyTable.refresh();
             supplyCollectionData.insert();

@@ -143,7 +143,10 @@ public class MedProdOverviewController extends OverviewController implements Ini
             int medCode = medProd.getMedCode();
             ObservableList<Supply> tempSupplyRow = FXCollections.observableArrayList();
 
-            tempSupplyRow.add(supplyCollectionData.getSupplyData().get(--medCode));
+            for (Supply supplies : supplyCollectionData.getSupplyData()){
+                if (supplies.getMedCode() == medCode)
+                    tempSupplyRow.add(supplies);
+            }
 
             supplyTable.setItems(tempSupplyRow);
 

@@ -32,9 +32,10 @@ public class SupplyCollectionData extends CollectionData implements SupplyDataIn
     @Override
     public void update(Supply supply) {
 
-        String updateQuery = "UPDATE DB_Receipt_of_Medicines.Supply SET supplierCode = '" + String.valueOf(supply.getSupplierCode()) + "', admissionDate = '" + supply.getAdmissionDate().toString() +
+        String updateQuery = "UPDATE DB_Receipt_of_Medicines.Supply SET admissionDate = '" + supply.getAdmissionDate().toString() +
                 "', cost = '" + String.valueOf(supply.getCost()) + "', quantity = '" + String.valueOf(supply.getQuantity()) + "', " +
-                "admissionCode = '" + String.valueOf(supply.getAdmissionCode()) + "' WHERE medCode = '" + String.valueOf(supply.getMedCode()) + "';";
+                "admissionCode = '" + String.valueOf(supply.getAdmissionCode()) + "' WHERE medCode = '" + String.valueOf(supply.getMedCode()) + "' && supplierCode = '" +
+                String.valueOf(supply.getSupplierCode()) + "';";
 
         update(updateQuery);
 
@@ -43,7 +44,8 @@ public class SupplyCollectionData extends CollectionData implements SupplyDataIn
     @Override
     public void delete(Supply supply) {
         deleteRow = false;
-        String deleteQuery = "DELETE FROM DB_Receipt_of_Medicines.Supply WHERE medCode = '" + String.valueOf(supply.getMedCode()) + "';";
+        String deleteQuery = "DELETE FROM DB_Receipt_of_Medicines.Supply WHERE medCode = '" + String.valueOf(supply.getMedCode()) + "' && supplierCode = '" +
+                String.valueOf(supply.getSupplierCode()) + "';";
 
         delete(deleteQuery);
     }
