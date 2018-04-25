@@ -1,4 +1,4 @@
-package address;
+package controllers;
 
 import collectionsData.SupplyCollectionData;
 import javafx.beans.property.ReadOnlyFloatWrapper;

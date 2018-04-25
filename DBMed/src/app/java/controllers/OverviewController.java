@@ -1,4 +1,4 @@
-package address;
+package controllers;
 
 import javafx.scene.control.Alert;
 

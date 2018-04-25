@@ -1,7 +1,7 @@
-package address;
+package controllers;
 
 import collectionsData.MedProdCollectionData;
-import connector.DBConnector;
+import dbConnector.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class ConnectWindowController implements Initializable {
+public class DBConnectWindowController implements Initializable {
 
     @FXML
     private TextField userField;

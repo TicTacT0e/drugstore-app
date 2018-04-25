@@ -1,4 +1,4 @@
-package address;
+package controllers;
 
 import collectionsData.SuppliersCollectionData;
 import javafx.beans.property.ReadOnlyIntegerWrapper;

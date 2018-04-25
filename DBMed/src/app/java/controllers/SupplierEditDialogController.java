@@ -1,4 +1,4 @@
-package address;
+package controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -76,7 +76,7 @@ public class SupplierEditDialogController extends EditDialog implements Initiali
         if (fullTitleEditField.getText() == null || fullTitleEditField.getText().length() == 0)
             errorMessage += "No valid full title.\n";
         if (legalAddressEditField.getText() == null || legalAddressEditField.getText().length() == 0)
-            errorMessage += "No valid legal address.\n";
+            errorMessage += "No valid legal controllers.\n";
         if (phoneEditField.getText() == null || phoneEditField.getText().length() == 0)
             errorMessage += "No valid phone.\n";
         else {
