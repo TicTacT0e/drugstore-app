@@ -1,13 +1,13 @@
 package collectionsData;
 
+import client.Client;
 import collectionsData.dataInterfaces.MedProdDataInterface;
+import handle.EventNamespace;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.MedProd;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 
 
 public class MedProdCollectionData extends CollectionData implements MedProdDataInterface {
@@ -15,19 +15,12 @@ public class MedProdCollectionData extends CollectionData implements MedProdData
     private static ObservableList<MedProd> medProdsData = FXCollections.observableArrayList();
 
     @Override
-    public void readData() {
+    public void readData(){
+        String selectQuery = "SELECT * FROM DB_Receipt_of_Medicines.MedProd;";
 
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSetMedProd = statement.executeQuery("SELECT * FROM DB_Receipt_of_Medicines.MedProd");
+        ArrayList<MedProd> tempMedProds = Client.getInstance().executeQuery(EventNamespace.SELECT_QUERY, selectQuery);
 
-            while (resultSetMedProd.next()) {
-                medProdsData.add(new MedProd(resultSetMedProd.getInt(1), resultSetMedProd.getString(2),
-                        resultSetMedProd.getString(3), resultSetMedProd.getString(4),
-                        resultSetMedProd.getInt(5), resultSetMedProd.getString(6)));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        medProdsData.addAll(tempMedProds);
     }
 
     @Override

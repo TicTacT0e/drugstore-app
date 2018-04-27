@@ -3,6 +3,7 @@ package server;
 import handle.EventNamespace;
 import handle.HandleData;
 import loggs.Logs;
+import model.MedProd;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -57,6 +58,18 @@ public class ClientConnection implements Runnable {
                             Logs.getInstance().logIn(handleData.getUsername() + " has access to the database");
                         else Logs.getInstance().logIn(handleData.getUsername() + "doesn't have access to the database");
                         handleData.setDatabaseRoot(dbRoot);
+                        send(handleData);
+                        break;
+
+                    case SELECT_QUERY:
+                        if(handleData.getQuery().contains("MedProd")) {
+                            handleData.setMedProds(Server.getMedProdTable(handleData.getQuery()));
+                        }
+
+                        for(MedProd medProd : handleData.getMedProds()){
+                            System.out.println(medProd.getMedCode() + " " + medProd.getNameMed());
+                        }
+
                         send(handleData);
                         break;
 

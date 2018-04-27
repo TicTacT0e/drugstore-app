@@ -1,107 +1,82 @@
 package model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import java.io.Serializable;
 
-public class MedProd {
+public class MedProd implements Serializable{
 
-    private final IntegerProperty medCode;
-    private final StringProperty nameMed;
-    private final StringProperty indications;
-    private final StringProperty unit;
-    private final IntegerProperty quantityInPac;
-    private final StringProperty manufactName;
+    private int medCode;
+    private String nameMed;
+    private String indications;
+    private String unit;
+    private int quantityInPac;
+    private String manufactName;
 
-    public MedProd() {
-        medCode = new SimpleIntegerProperty(0);
-        nameMed = new SimpleStringProperty("");
-        indications = new SimpleStringProperty("");
-        unit = new SimpleStringProperty("");
-        quantityInPac = new SimpleIntegerProperty(0);
-        manufactName = new SimpleStringProperty("");
+    public MedProd(){
+        medCode = 0;
+        nameMed = "";
+        indications = "";
+        unit = "";
+        quantityInPac = 0;
+        manufactName = "";
+
     }
 
     public MedProd(int medCode, String nameMed, String indications, String unit, int quantityInPac, String manufactName) {
 
-        this.medCode = new SimpleIntegerProperty(medCode);
-        this.nameMed = new SimpleStringProperty(nameMed);
-        this.indications = new SimpleStringProperty(indications);
-        this.unit = new SimpleStringProperty(unit);
-        this.quantityInPac = new SimpleIntegerProperty(quantityInPac);
-        this.manufactName = new SimpleStringProperty(manufactName);
+        this.medCode = medCode;
+        this.nameMed = nameMed;
+        this.indications = indications;
+        this.unit = unit;
+        this.quantityInPac = quantityInPac;
+        this.manufactName = manufactName;
     }
 
-    public void setMedCode(int medCode) {
-        this.medCode.set(medCode);
-    }
-
-    public void setNameMed(String nameMed) {
-        this.nameMed.set(nameMed);
-    }
-
-    public void setIndications(String indications) {
-        this.indications.set(indications);
-    }
-
-    public void setUnit(String unit) {
-        this.unit.set(unit);
-    }
-
-    public void setQuantityInPac(int quantityInPac) {
-        this.quantityInPac.set(quantityInPac);
-    }
-
-    public void setManufactName(String manufactName) {
-        this.manufactName.set(manufactName);
-    }
 
     public int getMedCode() {
-        return medCode.get();
-    }
-
-    public IntegerProperty medCodeProperty() {
         return medCode;
     }
 
-    public String getNameMed() {
-        return nameMed.get();
+    public void setMedCode(int medCode) {
+        this.medCode = medCode;
     }
 
-    public StringProperty nameMedProperty() {
+    public String getNameMed() {
         return nameMed;
     }
 
-    public String getIndications() {
-        return indications.get();
+    public void setNameMed(String nameMed) {
+        this.nameMed = nameMed;
     }
 
-    public StringProperty indicationsProperty() {
+    public String getIndications() {
         return indications;
     }
 
-    public String getUnit() {
-        return unit.get();
+    public void setIndications(String indications) {
+        this.indications = indications;
     }
 
-    public StringProperty unitProperty() {
+    public String getUnit() {
         return unit;
     }
 
-    public int getQuantityInPac() {
-        return quantityInPac.get();
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
-    public IntegerProperty quantityInPacProperty() {
+    public int getQuantityInPac() {
         return quantityInPac;
     }
 
-    public String getManufactName() {
-        return manufactName.get();
+    public void setQuantityInPac(int quantityInPac) {
+        this.quantityInPac = quantityInPac;
     }
 
-    public StringProperty manufactNameProperty() {
+    public String getManufactName() {
         return manufactName;
+    }
+
+    public void setManufactName(String manufactName) {
+        this.manufactName = manufactName;
     }
 }

@@ -1,8 +1,11 @@
 package handle;
 
-import java.io.Serializable;
+import model.MedProd;
 
-public class HandleData implements Serializable{
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class HandleData implements Serializable {
 
     private EventNamespace event = null;
 
@@ -15,15 +18,18 @@ public class HandleData implements Serializable{
     private String databasePassword = null;
 
     private boolean databaseRoot;
+    private String query;
 
+    private ArrayList<MedProd> medProds;
 
-    public HandleData(){}
+    public HandleData() {
+    }
 
-    public HandleData(EventNamespace event){
+    public HandleData(EventNamespace event) {
         this.event = event;
     }
 
-    public HandleData(EventNamespace event, String username){
+    public HandleData(EventNamespace event, String username) {
         this.event = event;
         this.username = username;
     }
@@ -66,5 +72,21 @@ public class HandleData implements Serializable{
 
     public void setDatabaseRoot(boolean databaseRoot) {
         this.databaseRoot = databaseRoot;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public ArrayList<MedProd> getMedProds() {
+        return medProds;
+    }
+
+    public void setMedProds(ArrayList<MedProd> medProds) {
+        this.medProds = medProds;
     }
 }

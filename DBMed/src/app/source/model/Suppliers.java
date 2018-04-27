@@ -2,7 +2,9 @@ package model;
 
 import javafx.beans.property.*;
 
-public class Suppliers {
+import java.io.Serializable;
+
+public class Suppliers implements Serializable {
 
     private final IntegerProperty supplierCode;
     private final StringProperty abbreviation;

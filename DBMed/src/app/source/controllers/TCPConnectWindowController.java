@@ -1,13 +1,12 @@
 package controllers;
 
-import client.ClientThread;
+import client.Client;
 import handle.EventNamespace;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.ParallelCamera;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -89,13 +88,13 @@ public class TCPConnectWindowController implements Initializable {
     }
 
     private void connect(){
-        ClientThread.getInstance().startClientThread();
-        connection = ClientThread.getInstance().connect(inetAddressField.getText());
+        //Client.getInstance().startClientThread();
+        connection = Client.getInstance().connect(inetAddressField.getText());
 
         if (connection) {
             alert.setContentText("Successful connection to the server!");
             alert.showAndWait();
-            ClientThread.getInstance().clientRegistration(EventNamespace.REGISTRATION, userField.getText());
+            Client.getInstance().clientRegistration(EventNamespace.REGISTRATION, userField.getText());
             tcpConnectWindowStage.close();
             try {
                 startDBConnectWindow();

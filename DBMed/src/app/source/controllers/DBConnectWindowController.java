@@ -1,8 +1,6 @@
 package controllers;
 
-import client.ClientThread;
-import collectionsData.MedProdCollectionData;
-import dbConnector.DBConnectorOLD;
+import client.Client;
 import handle.EventNamespace;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -72,32 +70,20 @@ public class DBConnectWindowController implements Initializable {
 
     private void connect(){
 
-        connectionFlag = ClientThread.getInstance().checkDBRoots(EventNamespace.ACCOUNT_CHECK, userField.getText(), passField.getText());
+        connectionFlag = Client.getInstance().checkDBRoots(EventNamespace.ACCOUNT_CHECK, userField.getText(), passField.getText());
 
         if (connectionFlag){
             alert.setContentText("Database connected!");
             alert.showAndWait();
-        }else{
-            alert.setContentText("Incorrect username or password. Try again.");
-            alert.showAndWait();
-        }
-    }
 
-    private void connectOLD() {
-        DBConnectorOLD dbConnectorOLD = new DBConnectorOLD(userField.getText(), passField.getText());
-        connectionFlag = dbConnectorOLD.startConnection();
-
-        if (connectionFlag) {
-            alert.setContentText("Database connected!");
-            alert.showAndWait();
-            try {
+            try{
                 dbConnectWindowStage.close();
-                MedProdCollectionData.setConnection(dbConnectorOLD.getConnection());
                 startMedProd();
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
-        } else {
+
+        }else{
             alert.setContentText("Incorrect username or password. Try again.");
             alert.showAndWait();
         }

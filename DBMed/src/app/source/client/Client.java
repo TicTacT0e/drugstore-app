@@ -1,25 +1,23 @@
 package client;
 
 import config.Config;
-import controllers.DBConnectWindowController;
 import handle.EventNamespace;
 import handle.HandleData;
-import loggs.Logs;
-import server.Server;
+import model.MedProd;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 
-public class ClientThread implements Runnable{
+public class Client {
 
-    private static ClientThread ourInstance = new ClientThread();
+    private static Client ourInstance = new Client();
 
-    public static ClientThread getInstance(){ return ourInstance; }
+    public static Client getInstance(){ return ourInstance; }
 
-    private Thread clientThread;
     private Socket socket;
     private InetAddress inetAddress;
     private int port = Config.PORT;
@@ -28,17 +26,7 @@ public class ClientThread implements Runnable{
 
     private static HandleData handleData = new HandleData();
 
-    private ClientThread() {}
-
-    public void startClientThread(){
-        clientThread = new Thread(this, "Client thread");
-        clientThread.start();
-    }
-
-    @Override
-    public void run() {
-
-    }
+    private Client() {}
 
     public boolean connect(String addr){
         try {
@@ -51,6 +39,21 @@ public class ClientThread implements Runnable{
             return true;
         }catch (IOException e){
             return false;
+        }
+    }
+
+    public ArrayList<MedProd> executeQuery(EventNamespace event, String query){
+        handleData.setEvent(event);
+        handleData.setQuery(query);
+        send(handleData);
+
+        try {
+            handleData = (HandleData) obInput.readObject();
+
+            return handleData.getMedProds();
+        } catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            return null;
         }
     }
 

@@ -2,9 +2,10 @@ package model;
 
 import javafx.beans.property.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Supply {
+public class Supply implements Serializable{
 
     private final IntegerProperty medCode;
     private final IntegerProperty supplierCode;

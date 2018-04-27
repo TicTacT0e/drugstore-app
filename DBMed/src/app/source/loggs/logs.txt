@@ -1,2 +1,2 @@
-root registered
-root has access to the database
+tick registered
+tick has access to the database
