@@ -1,106 +1,80 @@
 package model;
 
-import javafx.beans.property.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Supply implements Serializable{
+public class Supply implements Serializable, Model {
 
-    private final IntegerProperty medCode;
-    private final IntegerProperty supplierCode;
-    private final ObjectProperty<LocalDate> admissionDate;
-    private final FloatProperty cost;
-    private final IntegerProperty quantity;
-    private final IntegerProperty admissionCode;
+    private int medCode;
+    private int supplierCode;
+    private LocalDate admissionDate;
+    private float cost;
+    private int quantity;
+    private int admissionCode;
 
-    public Supply(){
-        this.medCode = new SimpleIntegerProperty(0);
-        this.supplierCode = new SimpleIntegerProperty(0);
-        this.admissionDate = new SimpleObjectProperty<LocalDate>(LocalDate.of(0001, 01, 01));
-        this.cost = new SimpleFloatProperty(0);
-        this.quantity = new SimpleIntegerProperty(0);
-        this.admissionCode = new SimpleIntegerProperty(0);
+    public Supply() {
+        this.medCode = 0;
+        this.supplierCode = 0;
+        this.admissionDate = LocalDate.parse("0001-01-01");
+        this.cost = 0;
+        this.quantity = 0;
+        this.admissionCode = 0;
     }
 
-    public Supply(int medCode, int supplierCode, LocalDate admissionDate, float cost, int quantity, int admissionCode){
-        this.medCode = new SimpleIntegerProperty(medCode);
-        this.supplierCode = new SimpleIntegerProperty(supplierCode);
-        this.admissionDate = new SimpleObjectProperty<LocalDate>(admissionDate);
-        this.cost = new SimpleFloatProperty(cost);
-        this.quantity = new SimpleIntegerProperty(quantity);
-        this.admissionCode = new SimpleIntegerProperty(admissionCode);
-    }
-
-    public void setMedCode(int medCode) {
-        this.medCode.set(medCode);
-    }
-
-    public void setSupplierCode(int supplierCode){
-        this.supplierCode.set(supplierCode);
-    }
-
-    public void setAdmissionDate(LocalDate admissionDate){
-        this.admissionDate.set(admissionDate);
-    }
-
-    public void setCost(float cost){
-        this.cost.set(cost);
-    }
-
-    public void setQuantity(int quantity){
-        this.quantity.set(quantity);
-    }
-
-    public void setAdmissionCode(int admissionCode){
-        this.admissionCode.set(admissionCode);
+    public Supply(int medCode, int supplierCode, LocalDate admissionDate, float cost, int quantity, int admissionCode) {
+        this.medCode = medCode;
+        this.supplierCode = supplierCode;
+        this.admissionDate = admissionDate;
+        this.cost = cost;
+        this.quantity = quantity;
+        this.admissionCode = admissionCode;
     }
 
     public int getMedCode() {
-        return medCode.get();
-    }
-
-    public IntegerProperty medCodeProperty() {
         return medCode;
     }
 
-    public int getSupplierCode() {
-        return supplierCode.get();
+    public void setMedCode(int medCode) {
+        this.medCode = medCode;
     }
 
-    public IntegerProperty supplierCodeProperty() {
+    public int getSupplierCode() {
         return supplierCode;
     }
 
-    public LocalDate getAdmissionDate() {
-        return admissionDate.get();
+    public void setSupplierCode(int supplierCode) {
+        this.supplierCode = supplierCode;
     }
 
-    public ObjectProperty<LocalDate> admissionDateProperty() {
+    public LocalDate getAdmissionDate() {
         return admissionDate;
     }
 
-    public float getCost() {
-        return cost.get();
+    public void setAdmissionDate(LocalDate admissionDate) {
+        this.admissionDate = admissionDate;
     }
 
-    public FloatProperty costProperty() {
+    public float getCost() {
         return cost;
     }
 
-    public int getQuantity() {
-        return quantity.get();
+    public void setCost(float cost) {
+        this.cost = cost;
     }
 
-    public IntegerProperty quantityProperty() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public int getAdmissionCode() {
-        return admissionCode.get();
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public IntegerProperty admissionCodeProperty() {
+    public int getAdmissionCode() {
         return admissionCode;
+    }
+
+    public void setAdmissionCode(int admissionCode) {
+        this.admissionCode = admissionCode;
     }
 }

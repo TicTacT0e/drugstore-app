@@ -64,10 +64,10 @@ public class ClientConnection implements Runnable {
                     case SELECT_QUERY:
                         if(handleData.getQuery().contains("MedProd")) {
                             handleData.setMedProds(Server.getMedProdTable(handleData.getQuery()));
-                        }
-
-                        for(MedProd medProd : handleData.getMedProds()){
-                            System.out.println(medProd.getMedCode() + " " + medProd.getNameMed());
+                        }else if (handleData.getQuery().contains("Suppliers")){
+                            handleData.setSuppliers(Server.getSuppliersTable(handleData.getQuery()));
+                        } else if (handleData.getQuery().contains("Supply")){
+                            handleData.setSupplies(Server.getSuppliesTable(handleData.getQuery()));
                         }
 
                         send(handleData);

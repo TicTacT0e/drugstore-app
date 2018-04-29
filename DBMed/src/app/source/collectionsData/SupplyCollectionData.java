@@ -1,6 +1,8 @@
 package collectionsData;
 
+import client.Client;
 import collectionsData.dataInterfaces.SupplyDataInterface;
+import handle.EventNamespace;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Supply;
@@ -8,6 +10,7 @@ import model.Supply;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class SupplyCollectionData extends CollectionData implements SupplyDataInterface {
 
@@ -15,18 +18,13 @@ public class SupplyCollectionData extends CollectionData implements SupplyDataIn
 
     @Override
     public void readData() {
+        String selectQuery = "SELECT * FROM DB_Receipt_of_Medicines.Supply;";
 
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSetSupply = statement.executeQuery("SELECT * FROM DB_Receipt_of_Medicines.Supply");
+        ArrayList<Supply> tempSupplies = new ArrayList<>();
 
-            while (resultSetSupply.next()) {
-                supplyData.add(new Supply(resultSetSupply.getInt(1), resultSetSupply.getInt(2), resultSetSupply.getDate(3).toLocalDate(),
-                        resultSetSupply.getFloat(4), resultSetSupply.getInt(5), resultSetSupply.getInt(6)));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        tempSupplies = Client.getInstance().executeQuery(EventNamespace.SELECT_QUERY, selectQuery, tempSupplies);
 
+        supplyData.addAll(tempSupplies);
     }
 
     @Override

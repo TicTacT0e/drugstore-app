@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class MedProd implements Serializable{
+public class MedProd implements Serializable, Model{
 
     private int medCode;
     private String nameMed;

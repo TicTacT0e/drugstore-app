@@ -100,19 +100,19 @@ public class MedProdOverviewController extends OverviewController implements Ini
         quantityInPacColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getQuantityInPac()));
         manufactNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getManufactName()));
 
-       // supplyCollectionData.readData();
+        supplyCollectionData.readData();
 
-      //  suppliersCollectionData.readData();
+        suppliersCollectionData.readData();
 
         /**
          *Слушатель для supply(showSupplyDetails)
          **/
-      //  medProdTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showSupplyDetails(newValue));
+        medProdTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showSupplyDetails(newValue));
 
         /**
          *Слушатель для suppliers(showSuppliersDetails)
          **/
-     //   medProdTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showSuppliersDetails(newValue));
+        medProdTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showSuppliersDetails(newValue));
 
 
     }

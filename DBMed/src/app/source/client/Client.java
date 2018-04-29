@@ -4,6 +4,8 @@ import config.Config;
 import handle.EventNamespace;
 import handle.HandleData;
 import model.MedProd;
+import model.Model;
+import model.Suppliers;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -42,6 +44,47 @@ public class Client {
         }
     }
 
+    public <T extends Model> ArrayList<T> executeQuery(EventNamespace event, String query, ArrayList<T> tableData) {
+        handleData.setEvent(event);
+        handleData.setQuery(query);
+        send(handleData);
+
+        try {
+            handleData = (HandleData) obInput.readObject();
+
+            if(handleData.getQuery().contains("MedProd")) {
+
+                tableData = (ArrayList<T>) handleData.getMedProds();
+            } else if (handleData.getQuery().contains("Suppliers")){
+                tableData = (ArrayList<T>) handleData.getSuppliers();
+            } else if (handleData.getQuery().contains("Supply")){
+                tableData = (ArrayList<T>) handleData.getSupplies();
+            }
+
+            return tableData;
+
+        } catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /*
+    public ArrayList<Suppliers> executeQuery(EventNamespace event, String query){
+        handleData.setEvent(event);
+        handleData.setQuery(query);
+        send(handleData);
+
+        try {
+            handleData = (HandleData) obInput.readObject();
+
+            return handleData.getSuppliers();
+        } catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public ArrayList<MedProd> executeQuery(EventNamespace event, String query){
         handleData.setEvent(event);
         handleData.setQuery(query);
@@ -56,6 +99,7 @@ public class Client {
             return null;
         }
     }
+    */
 
     public void clientRegistration(EventNamespace event, String username){
         handleData.setEvent(event);

@@ -1,6 +1,8 @@
 package handle;
 
 import model.MedProd;
+import model.Suppliers;
+import model.Supply;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ public class HandleData implements Serializable {
     private String query;
 
     private ArrayList<MedProd> medProds;
+    private ArrayList<Suppliers> suppliers;
+    private ArrayList<Supply> supplies;
 
     public HandleData() {
     }
@@ -88,5 +92,21 @@ public class HandleData implements Serializable {
 
     public void setMedProds(ArrayList<MedProd> medProds) {
         this.medProds = medProds;
+    }
+
+    public ArrayList<Suppliers> getSuppliers() {
+        return suppliers;
+    }
+
+    public void setSuppliers(ArrayList<Suppliers> suppliers) {
+        this.suppliers = suppliers;
+    }
+
+    public ArrayList<Supply> getSupplies() {
+        return supplies;
+    }
+
+    public void setSupplies(ArrayList<Supply> supplies) {
+        this.supplies = supplies;
     }
 }

@@ -18,7 +18,9 @@ public class MedProdCollectionData extends CollectionData implements MedProdData
     public void readData(){
         String selectQuery = "SELECT * FROM DB_Receipt_of_Medicines.MedProd;";
 
-        ArrayList<MedProd> tempMedProds = Client.getInstance().executeQuery(EventNamespace.SELECT_QUERY, selectQuery);
+        ArrayList<MedProd> tempMedProds = new ArrayList<>();
+
+        tempMedProds = Client.getInstance().executeQuery(EventNamespace.SELECT_QUERY, selectQuery, tempMedProds);
 
         medProdsData.addAll(tempMedProds);
     }

@@ -1,105 +1,80 @@
 package model;
 
-import javafx.beans.property.*;
-
 import java.io.Serializable;
 
-public class Suppliers implements Serializable {
+public class Suppliers implements Serializable, Model {
 
-    private final IntegerProperty supplierCode;
-    private final StringProperty abbreviation;
-    private final StringProperty fullTitle;
-    private final StringProperty legalAddress;
-    private final LongProperty phone;
-    private final StringProperty fullNameOfHead;
+    private int supplierCode;
+    private String abbreviation;
+    private String fullTitle;
+    private String legalAddress;
+    private long phone;
+    private String fullNameOfHead;
 
-    public Suppliers(){
-        this.supplierCode = new SimpleIntegerProperty(0);
-        this.abbreviation = new SimpleStringProperty("");
-        this.fullTitle = new SimpleStringProperty("");
-        this.legalAddress = new SimpleStringProperty("");
-        this.phone = new SimpleLongProperty(0);
-        this.fullNameOfHead = new SimpleStringProperty("");
+    public Suppliers() {
+        this.supplierCode = 0;
+        this.abbreviation = "";
+        this.fullTitle = "";
+        this.legalAddress = "";
+        this.phone = 0;
+        this.fullNameOfHead = "";
     }
 
-    public Suppliers (int supplierCode, String abbreviation, String fullTitle, String legalAddress, long phone, String fullNameOfHead){
-        this.supplierCode = new SimpleIntegerProperty(supplierCode);
-        this.abbreviation = new SimpleStringProperty(abbreviation);
-        this.fullTitle = new SimpleStringProperty(fullTitle);
-        this.legalAddress = new SimpleStringProperty(legalAddress);
-        this.phone = new SimpleLongProperty(phone);
-        this.fullNameOfHead = new SimpleStringProperty(fullNameOfHead);
+    public Suppliers(int supplierCode, String abbreviation, String fullTitle, String legalAddress, long phone, String fullNameOfHead) {
+        this.supplierCode = supplierCode;
+        this.abbreviation = abbreviation;
+        this.fullTitle = fullTitle;
+        this.legalAddress = legalAddress;
+        this.phone = phone;
+        this.fullNameOfHead = fullNameOfHead;
     }
 
-    public void setSupplierCode(int supplierCode){
-        this.supplierCode.set(supplierCode);
-    }
-
-    public void setAbbreviation(String abbreviation){
-        this.abbreviation.set(abbreviation);
-    }
-
-    public void setFullTitle(String fullTitle){
-        this.fullTitle.set(fullTitle);
-    }
-
-    public void setLegalAddress(String legalAddress){
-        this.legalAddress.set(legalAddress);
-    }
-
-    public void setPhone(long phone){
-        this.phone.setValue(phone);
-    }
-
-    public void setFullNameOfHead(String fullNameOfHead){
-        this.fullNameOfHead.set(fullNameOfHead);
-    }
 
     public int getSupplierCode() {
-        return supplierCode.get();
-    }
-
-    public IntegerProperty supplierCodeProperty() {
         return supplierCode;
     }
 
-    public String getAbbreviation() {
-        return abbreviation.get();
+    public void setSupplierCode(int supplierCode) {
+        this.supplierCode = supplierCode;
     }
 
-    public StringProperty abbreviationProperty() {
+    public String getAbbreviation() {
         return abbreviation;
     }
 
-    public String getFullTitle() {
-        return fullTitle.get();
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
-    public StringProperty fullTitleProperty() {
+    public String getFullTitle() {
         return fullTitle;
     }
 
-    public String getLegalAddress() {
-        return legalAddress.get();
+    public void setFullTitle(String fullTitle) {
+        this.fullTitle = fullTitle;
     }
 
-    public StringProperty legalAddressProperty() {
+    public String getLegalAddress() {
         return legalAddress;
     }
 
-    public long getPhone() {
-        return phone.get();
+    public void setLegalAddress(String legalAddress) {
+        this.legalAddress = legalAddress;
     }
 
-    public LongProperty phoneProperty() {
+    public long getPhone() {
         return phone;
     }
 
-    public String getFullNameOfHead() {
-        return fullNameOfHead.get();
+    public void setPhone(long phone) {
+        this.phone = phone;
     }
 
-    public StringProperty fullNameOfHeadProperty() {
+    public String getFullNameOfHead() {
         return fullNameOfHead;
+    }
+
+    public void setFullNameOfHead(String fullNameOfHead) {
+        this.fullNameOfHead = fullNameOfHead;
     }
 }
