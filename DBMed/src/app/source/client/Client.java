@@ -69,6 +69,12 @@ public class Client {
         }
     }
 
+    public void executeQuery(EventNamespace event, String query){
+        handleData.setEvent(event);
+        handleData.setQuery(query);
+        send(handleData);
+    }
+
     /*
     public ArrayList<Suppliers> executeQuery(EventNamespace event, String query){
         handleData.setEvent(event);

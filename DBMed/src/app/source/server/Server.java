@@ -3,6 +3,7 @@ package server;
 import config.Config;
 import dbConnector.DBConnector;
 import model.MedProd;
+import model.Model;
 import model.Suppliers;
 import model.Supply;
 
@@ -64,7 +65,67 @@ public class Server implements Runnable {
         else return false;
     }
 
-    public static ArrayList<MedProd> getMedProdTable(String query) {
+    public static synchronized void executeQuery(String query){
+
+        if (query.contains("INSERT")) {
+            try (Statement statement = DBConnector.getInstance().getConnection().createStatement()) {
+                statement.execute(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try (Statement statement = DBConnector.getInstance().getConnection().createStatement()) {
+                statement.executeUpdate(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static synchronized  <T extends Model> ArrayList<T> getTable(String query) {
+        ResultSet tempResultSet;
+
+        ArrayList<T> tempTable = new ArrayList<>();
+
+        try (Statement statement = DBConnector.getInstance().getConnection().createStatement()) {
+            tempResultSet = statement.executeQuery(query);
+
+            if (query.contains("MedProd")) {
+
+                while (tempResultSet.next()) {
+                    tempTable.add((T) new MedProd(tempResultSet.getInt(1), tempResultSet.getString(2),
+                            tempResultSet.getString(3), tempResultSet.getString(4),
+                            tempResultSet.getInt(5), tempResultSet.getString(6)));
+                }
+
+            } else if (query.contains("Suppliers")) {
+
+                while (tempResultSet.next()) {
+                    tempTable.add((T) new Suppliers(tempResultSet.getInt(1), tempResultSet.getString(2), tempResultSet.getString(3),
+                            tempResultSet.getString(4), tempResultSet.getLong(5), tempResultSet.getString(6)));
+                }
+
+            } else if (query.contains("Supply")) {
+
+                while (tempResultSet.next()) {
+                    tempTable.add((T) new Supply(tempResultSet.getInt(1), tempResultSet.getInt(2), tempResultSet.getDate(3).toLocalDate(),
+                            tempResultSet.getFloat(4), tempResultSet.getInt(5), tempResultSet.getInt(6)));
+                }
+            }
+
+            return tempTable;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * OLD
+     */
+    public static synchronized ArrayList<MedProd> getMedProdTable(String query) {
         ResultSet tempResultSet;
 
         ArrayList<MedProd> tempMedProds = new ArrayList<>();
@@ -84,7 +145,10 @@ public class Server implements Runnable {
         }
     }
 
-    public static ArrayList<Suppliers> getSuppliersTable(String query) {
+    /**
+     * OLD
+     */
+    public static synchronized ArrayList<Suppliers> getSuppliersTable(String query) {
         ResultSet tempResultSet;
 
         ArrayList<Suppliers> tempSuppliers = new ArrayList<>();
@@ -103,7 +167,10 @@ public class Server implements Runnable {
         }
     }
 
-    public static ArrayList<Supply> getSuppliesTable(String query) {
+    /**
+     * OLD
+     */
+    public static synchronized ArrayList<Supply> getSuppliesTable(String query) {
         ResultSet tempResultSet;
 
         ArrayList<Supply> tempSupplies = new ArrayList<>();

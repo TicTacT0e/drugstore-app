@@ -1,6 +1,8 @@
 package collectionsData;
 
+import client.Client;
 import collectionsData.dataInterfaces.DataInterface;
+import handle.EventNamespace;
 import javafx.scene.control.Alert;
 
 import java.sql.Connection;
@@ -23,15 +25,15 @@ public class CollectionData implements DataInterface{
     public void readData() {}
 
     public void update(String updateQuery){
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(updateQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Client.getInstance().executeQuery(EventNamespace.EXECUTE_QUERY, updateQuery);
     }
 
     public void delete(String deleteQuery){
         deleteRow = false;
+
+        Client.getInstance().executeQuery(EventNamespace.EXECUTE_QUERY, deleteQuery);
+
+        /*
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(deleteQuery);
             deleteRow = true;
@@ -43,13 +45,10 @@ public class CollectionData implements DataInterface{
             alert.setContentText("Cannot delete a parent row.");
             alert.showAndWait();
         }
+        */
     }
 
     public void insert(String insertQuery){
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(insertQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Client.getInstance().executeQuery(EventNamespace.EXECUTE_QUERY, insertQuery);
     }
 }
