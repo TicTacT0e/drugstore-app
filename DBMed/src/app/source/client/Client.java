@@ -3,9 +3,7 @@ package client;
 import config.Config;
 import handle.EventNamespace;
 import handle.HandleData;
-import model.MedProd;
 import model.Model;
-import model.Suppliers;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -75,6 +73,14 @@ public class Client {
         send(handleData);
     }
 
+    public boolean executeDelete(EventNamespace event, String query){
+        handleData.setEvent(event);
+        handleData.setQuery(query);
+        send(handleData);
+
+        return returnFlag();
+    }
+
     /*
     public ArrayList<Suppliers> executeQuery(EventNamespace event, String query){
         handleData.setEvent(event);
@@ -119,13 +125,7 @@ public class Client {
         handleData.setDatabasePassword(password);
         send(handleData);
 
-        try {
-            handleData = (HandleData) obInput.readObject();
-            return handleData.getDatabaseRoot();
-        }catch (IOException | ClassNotFoundException e){
-            e.printStackTrace();
-            return false;
-        }
+        return returnFlag();
     }
 
     private void send(HandleData handleData){
@@ -134,6 +134,16 @@ public class Client {
             obOutput.writeObject(handleData);
         }catch (IOException e){
             e.printStackTrace();
+        }
+    }
+
+    private boolean returnFlag(){
+        try {
+            handleData = (HandleData) obInput.readObject();
+            return handleData.getFlag();
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            return false;
         }
     }
 

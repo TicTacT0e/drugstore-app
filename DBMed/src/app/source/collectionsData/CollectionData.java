@@ -13,7 +13,7 @@ public class CollectionData implements DataInterface{
 
     protected static Connection connection;
 
-    public static boolean deleteRow;
+    public static boolean deleteRow = false;
 
     public CollectionData() {
     }
@@ -29,23 +29,16 @@ public class CollectionData implements DataInterface{
     }
 
     public void delete(String deleteQuery){
-        deleteRow = false;
 
-        Client.getInstance().executeQuery(EventNamespace.EXECUTE_QUERY, deleteQuery);
+        deleteRow = Client.getInstance().executeDelete(EventNamespace.DELETE_ROW, deleteQuery);
 
-        /*
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(deleteQuery);
-            deleteRow = true;
-        } catch (SQLException e) {
-            deleteRow = false;
+        if (!deleteRow){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error!");
             alert.setHeaderText("Cannot delete.");
             alert.setContentText("Cannot delete a parent row.");
             alert.showAndWait();
         }
-        */
     }
 
     public void insert(String insertQuery){

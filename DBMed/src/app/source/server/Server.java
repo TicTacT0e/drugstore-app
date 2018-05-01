@@ -65,7 +65,7 @@ public class Server implements Runnable {
         else return false;
     }
 
-    public static synchronized void executeQuery(String query){
+    public static synchronized void executeQuery(String query) {
 
         if (query.contains("INSERT")) {
             try (Statement statement = DBConnector.getInstance().getConnection().createStatement()) {
@@ -82,7 +82,17 @@ public class Server implements Runnable {
         }
     }
 
-    public static synchronized  <T extends Model> ArrayList<T> getTable(String query) {
+    public static synchronized boolean executeDelete(String query) {
+        try (Statement statement = DBConnector.getInstance().getConnection().createStatement()) {
+            statement.executeUpdate(query);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static synchronized <T extends Model> ArrayList<T> getTable(String query) {
         ResultSet tempResultSet;
 
         ArrayList<T> tempTable = new ArrayList<>();
@@ -119,74 +129,5 @@ public class Server implements Runnable {
             e.printStackTrace();
             return null;
         }
-
     }
-
-    /**
-     * OLD
-     */
-    public static synchronized ArrayList<MedProd> getMedProdTable(String query) {
-        ResultSet tempResultSet;
-
-        ArrayList<MedProd> tempMedProds = new ArrayList<>();
-        try (Statement statement = DBConnector.getInstance().getConnection().createStatement()) {
-            tempResultSet = statement.executeQuery(query);
-
-            while (tempResultSet.next()) {
-                tempMedProds.add(new MedProd(tempResultSet.getInt(1), tempResultSet.getString(2),
-                        tempResultSet.getString(3), tempResultSet.getString(4),
-                        tempResultSet.getInt(5), tempResultSet.getString(6)));
-            }
-
-            return tempMedProds;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     * OLD
-     */
-    public static synchronized ArrayList<Suppliers> getSuppliersTable(String query) {
-        ResultSet tempResultSet;
-
-        ArrayList<Suppliers> tempSuppliers = new ArrayList<>();
-        try (Statement statement = DBConnector.getInstance().getConnection().createStatement()) {
-            tempResultSet = statement.executeQuery(query);
-
-            while (tempResultSet.next()) {
-                tempSuppliers.add(new Suppliers(tempResultSet.getInt(1), tempResultSet.getString(2), tempResultSet.getString(3),
-                        tempResultSet.getString(4), tempResultSet.getLong(5), tempResultSet.getString(6)));
-            }
-
-            return tempSuppliers;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     * OLD
-     */
-    public static synchronized ArrayList<Supply> getSuppliesTable(String query) {
-        ResultSet tempResultSet;
-
-        ArrayList<Supply> tempSupplies = new ArrayList<>();
-        try (Statement statement = DBConnector.getInstance().getConnection().createStatement()) {
-            tempResultSet = statement.executeQuery(query);
-
-            while (tempResultSet.next()) {
-                tempSupplies.add(new Supply(tempResultSet.getInt(1), tempResultSet.getInt(2), tempResultSet.getDate(3).toLocalDate(),
-                        tempResultSet.getFloat(4), tempResultSet.getInt(5), tempResultSet.getInt(6)));
-            }
-
-            return tempSupplies;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 }

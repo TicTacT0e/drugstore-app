@@ -19,7 +19,7 @@ public class HandleData implements Serializable {
     private String databaseLogin = null;
     private String databasePassword = null;
 
-    private boolean databaseRoot;
+    private boolean flag;
     private String query;
 
     private ArrayList<MedProd> medProds;
@@ -70,12 +70,12 @@ public class HandleData implements Serializable {
         this.databasePassword = databasePassword;
     }
 
-    public boolean getDatabaseRoot() {
-        return databaseRoot;
+    public boolean getFlag() {
+        return flag;
     }
 
-    public void setDatabaseRoot(boolean databaseRoot) {
-        this.databaseRoot = databaseRoot;
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
     public String getQuery() {

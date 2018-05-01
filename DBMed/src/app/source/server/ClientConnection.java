@@ -3,7 +3,6 @@ package server;
 import handle.EventNamespace;
 import handle.HandleData;
 import loggs.Logs;
-import model.MedProd;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -57,7 +56,7 @@ public class ClientConnection implements Runnable {
                         if(dbRoot)
                             Logs.getInstance().logIn(handleData.getUsername() + " has access to the database");
                         else Logs.getInstance().logIn(handleData.getUsername() + "doesn't have access to the database");
-                        handleData.setDatabaseRoot(dbRoot);
+                        handleData.setFlag(dbRoot);
                         send(handleData);
                         break;
 
@@ -74,7 +73,12 @@ public class ClientConnection implements Runnable {
                         break;
 
                     case EXECUTE_QUERY:
-                            Server.executeQuery(handleData.getQuery());
+                        Server.executeQuery(handleData.getQuery());
+                        break;
+
+                    case DELETE_ROW:
+                        handleData.setFlag(Server.executeDelete(handleData.getQuery()));
+                        send(handleData);
                         break;
 
                     default:
